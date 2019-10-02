@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginBottom="7dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        >
+        <include
+            android:id="@+id/Ftoolbar"
+            layout="@layout/layout_toolbar"
+            />
+    </LinearLayout>
+
+    <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="vertical"
+    android:layout_below="@+id/ll_toolbar"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/crdview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_main"
+                android:layout_width="90dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_vertical"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                >
+
+                <TextView
+                    android:id="@+id/tx_mainworker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="One General Worker"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/app_theme"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.50dp"
+                    android:background="@color/black"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Time : 9:00 Am to 04:00 Pm"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rate : "
+                        android:textColor="@color/black"
+                        />
+
+                    <TextView
+                        android:id="@+id/tx_pay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₹500"
+                        android:textColor="@color/black"
+                        />
+
+                    <TextView
+                        android:id="@+id/tx_mem"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="(1 member)"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="5dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tx_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add"
+                        android:textColor="@color/black"
+                        android:drawableRight="@drawable/ic_add_circle_black_24dp"
+                        android:drawablePadding="10dp"
+                        />
+                    </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hire From :"
+                        android:textColor="@color/black"
+                        />
+                    <EditText
+                        android:id="@+id/ed_hirefrom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/calendar"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:editable="false"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hire Up To :"
+                        android:textColor="@color/black"
+                        />
+                    <EditText
+                        android:id="@+id/ed_hireto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/calendar"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:editable="false"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Work Details"
+                        android:textColor="@color/black"
+                        />
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/crdview2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/crdview"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_hlpr"
+                android:layout_width="90dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_vertical"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                >
+
+                <TextView
+                    android:id="@+id/tx_helper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="One General Worker"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/app_theme"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.50dp"
+                    android:background="@color/black"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Time : 9:00 Am to 04:00 Pm"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rate : "
+                        android:textColor="@color/black"
+                        />
+
+                    <TextView
+                        android:id="@+id/tx_pay2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₹500"
+                        android:textColor="@color/black"
+                        />
+
+                    <TextView
+                        android:id="@+id/tx_mem2"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="(1 member)"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="5dp"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/tx_add2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add"
+                        android:textColor="@color/black"
+                        android:drawableRight="@drawable/ic_add_circle_black_24dp"
+                        /></LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hire From :"
+                        android:textColor="@color/black"
+                        />
+                    <EditText
+                        android:id="@+id/ed_hhirefrom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/calendar"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:editable="false"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hire Up To :"
+                        android:textColor="@color/black"
+                        />
+                    <EditText
+                        android:id="@+id/ed_hhireto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/calendar"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:editable="false"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Work Details"
+                        android:textColor="@color/black"
+                        />
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/crdview2"
+        >
+    <LinearLayout
+        android:id="@+id/buttn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <Button
+            android:id="@+id/conthiring"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Continue Hiring"
+            android:textColor="@color/white"
+            android:textSize="7pt"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="@drawable/button"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            />
+
+        <Button
+            android:id="@+id/Next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:gravity="center"
+            android:text="Add to Cart"
+            android:textColor="@color/white"
+            android:textSize="7pt"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+    </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/fab_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        style="@style/AddButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:paddingBottom="50dp"
+        fab:menu_colorNormal="#1E90FF"
+        fab:menu_colorPressed="#32A9F8"
+        fab:menu_showShadow="true"
+        fab:menu_labels_showShadow="true"
+        fab:menu_labels_maxLines="-1"
+        fab:menu_labels_position="left"
+        fab:menu_openDirection="up"
+        app:menu_labels_colorNormal="@color/grey"
+        fab:fab_shadowColor="#66000000"
+        app:menu_fab_size="mini"
+        >
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/floating_orderph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/app_theme"
+            app:fab_label="Checkout"
+            android:src="@drawable/ic_check_white_24dp"
+            android:layout_gravity="end"
+            android:layout_marginRight="10dp"
+            app:fab_size="mini"
+            style="@style/AddButton"
+            />
+
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/floating_chkout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/app_theme"
+            app:fab_label="Order on Phone"
+            android:src="@drawable/ic_phone_android_white_24dp"
+            android:layout_gravity="end"
+            android:layout_marginRight="10dp"
+            app:fab_size="mini"
+            style="@style/AddButton"
+            />
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+</RelativeLayout>

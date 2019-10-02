@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        >
+        <include
+            android:id="@+id/Ftoolbar"
+            layout="@layout/layout_toolbar"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.80dp"
+            android:background="@color/blue"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center|center_horizontal"
+            android:padding="6dp"
+            >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SUBTOTAL"
+            android:textStyle="bold"
+            android:textSize="9pt"
+            android:textColor="@color/black"
+            android:layout_marginLeft="20pt"
+            />
+            <TextView
+                android:id="@+id/tx_subtotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="9pt"
+                android:gravity="end"
+                android:textStyle="bold"
+                android:layout_marginRight="30pt"
+                android:textColor="@color/black"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center|center_horizontal"
+            android:padding="6dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PAYABLE"
+                android:textSize="9pt"
+                android:textColor="@color/black"
+                android:layout_marginLeft="20pt"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/tx_payable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:layout_marginRight="30pt"
+                android:textStyle="bold"
+                android:textSize="9pt"
+                android:textColor="@color/black"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.80dp"
+            android:background="@color/blue"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:paddingBottom="9dp"
+        >
+
+        <Button
+            android:id="@+id/conthiring"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Continue Hiring"
+            android:textColor="@color/white"
+            android:textSize="7pt"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="@drawable/button"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            />
+        <Button
+            android:id="@+id/check_out"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Check Out"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="7pt"
+            android:gravity="center"
+            android:background="@drawable/button"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>

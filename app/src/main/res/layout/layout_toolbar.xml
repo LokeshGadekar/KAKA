@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    tools:ignore="MissingPrefix"
+    >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/AppTheme.PopUpMenu"
+        app:layout_collapseMode="pin"
+        android:background="@color/app_theme"/>
+
+    <TextView
+        android:id="@+id/txToolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="17dp"
+        android:singleLine="true"
+        android:paddingRight="10dp"/>
+
+    <ImageView
+        android:id="@+id/imgToolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="10dp" />
+
+   <!-- <ImageView
+        android:id="@+id/location"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_location_on_white_24dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="44dp"
+        android:visibility="gone"
+        android:layout_marginRight="10dp"
+        android:padding="4dp" />
+
+    <ImageView
+        android:id="@+id/bell"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_notifications_none_black_24dp"
+        android:visibility="gone"
+        android:layout_marginRight="10dp"
+        android:padding="4dp" />-->
+
+    <include
+        android:id="@+id/cart"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        layout="@layout/menu_cart_layout"
+        android:layout_alignParentEnd="true"
+        />
+
+   <!-- <ImageView
+        android:id="@+id/cart"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:padding="4dp"
+        android:src="@drawable/ic_shopping_cart_black_24dp"
+        android:layout_marginRight="6pt"
+        android:visibility="" />-->
+
+
+</RelativeLayout>

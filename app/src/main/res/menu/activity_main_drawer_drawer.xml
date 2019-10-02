@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_profile"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_booking"
+            android:title="My Booking" />
+        <item
+            android:id="@+id/nav_payhistory"
+            android:title="Payment History" />
+        <item
+            android:id="@+id/nav_aboutus"
+            android:title="About Us" />
+
+        <item
+            android:id="@+id/nav_orderphone"
+            android:title="Order On Phone" />
+
+        <item
+            android:id="@+id/nav_support"
+            android:title="Support" />
+
+        <item
+            android:id="@+id/nav_tnc"
+            android:title="@string/menu_tnc"/>
+
+        <item
+            android:id="@+id/nav_share"
+            android:title="Share" />
+
+        <item
+            android:id="@+id/nav_login"
+            android:title="Login"
+            />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout" />
+
+    </group>
+
+</menu>

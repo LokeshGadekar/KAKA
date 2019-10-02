@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="10dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        >
+        <include
+            android:id="@+id/Ftoolbar"
+            layout="@layout/layout_toolbar"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/ll_toolbar"
+        android:layout_margin="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="User Details"
+            android:textColor="@color/blue"
+            android:textSize="8pt"
+            style="@style/bold_tx"
+            android:layout_marginLeft="5dp"
+            />
+        <EditText
+            android:id="@+id/ed_name"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:hint="Name"
+            android:background="@drawable/edit_text"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:singleLine="true"
+            />
+
+        <EditText
+            android:id="@+id/ed_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:hint="Mobile No."
+            android:background="@drawable/edit_text"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:inputType="number"
+            android:singleLine="true"
+            />
+
+        <EditText
+            android:id="@+id/ed_mobileopt"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:hint="Mobile No.(Optional)"
+            android:background="@drawable/edit_text"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:inputType="number"
+            android:singleLine="true"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="User Address"
+            android:textColor="@color/blue"
+            style="@style/bold_tx"
+            android:textSize="8pt"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="8dp"
+            />
+
+        <EditText
+            android:id="@+id/ed_landmark"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:hint="Landmark"
+            android:background="@drawable/edit_text"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/edit_text"
+            android:layout_marginTop="8dp"
+            >
+
+        <EditText
+            android:id="@+id/ed_aaddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address "
+            android:gravity="center_vertical"
+            android:background="@android:color/transparent"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:inputType="text"
+            android:layout_marginEnd="13pt"
+            />
+
+         <ImageView
+             android:id="@+id/ic_map"
+             android:layout_width="30dp"
+             android:layout_height="27dp"
+             android:src="@drawable/ic_location_on_black_24dp"
+             android:layout_alignParentEnd="true"
+             android:layout_marginTop="2dp"
+             />
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.80dp"
+            android:background="@color/blue"
+            android:layout_marginTop="9pt"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Payment Mode"
+            android:textColor="@color/blue"
+            style="@style/bold_tx"
+            android:textSize="8pt"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="8dp"
+            />
+
+        <RadioGroup
+            android:id="@+id/radiopayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            >
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Online"/>
+
+             <RadioButton
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Cash on Delivery"
+                 android:layout_marginLeft="25dp"
+                 />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center|center_horizontal"
+            android:padding="3dp"
+            android:layout_marginTop="4pt"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SUBTOTAL"
+                android:textStyle="bold"
+                android:textSize="9pt"
+                android:textColor="@color/black"
+                android:layout_marginLeft="20pt"
+                />
+            <TextView
+                android:id="@+id/tx_subtotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="₹3000"
+                android:textSize="9pt"
+                android:gravity="end"
+                android:textStyle="bold"
+                android:layout_marginRight="30pt"
+                android:textColor="@color/black"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center|center_horizontal"
+            android:padding="3dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PAYABLE"
+                android:textSize="9pt"
+                android:textColor="@color/black"
+                android:layout_marginLeft="20pt"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/tx_payable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="₹1500"
+                android:gravity="end"
+                android:layout_marginRight="30pt"
+                android:textStyle="bold"
+                android:textSize="9pt"
+                android:textColor="@color/black"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center|center_horizontal"
+            android:padding="3dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Advance Payment"
+                android:textSize="9pt"
+                android:textColor="@color/black"
+                android:layout_marginLeft="20pt"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/tx_advpay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:gravity="end"
+                android:layout_marginRight="30pt"
+                android:textStyle="bold"
+                android:textSize="9pt"
+                android:textColor="@color/black"
+                />
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.80dp"
+            android:background="@color/blue"
+            android:layout_marginTop="10dp"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/place_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Place Order"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:textSize="7pt"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/button"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        />
+
+</RelativeLayout>

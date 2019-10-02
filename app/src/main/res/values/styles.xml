@@ -1,0 +1,50 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/app_theme</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AddButton">
+        <item name="fab_colorPressed">@color/light_blue</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="AppTheme.PopUpMenu" parent="Theme.AppCompat.Light">
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:src">@drawable/ic_menu2_24dp</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="bold_tx" parent="android:Widget.TextView">
+        <item name="fontPath">font/Roboto-Bold.ttf</item>
+    </style>
+
+    <style name="tx_vu" parent="android:Widget.TextView">
+        <item name="fontPath">font/Roboto-Regular.ttf</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="ed_txt" parent="android:Widget.EditText">
+        <item name="fontPath">font/Roboto-Regular.ttf</item>
+        <item name="android:textSize">8pt</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/light_grey</item>
+    </style>
+
+</resources>

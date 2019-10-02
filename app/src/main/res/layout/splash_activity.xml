@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/app_theme"
+    >
+
+    <TextView
+        android:id="@+id/app_nm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15pt"
+        android:textStyle="bold"
+        android:text="Man Power"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_centerVertical="true"/>
+
+
+</RelativeLayout>

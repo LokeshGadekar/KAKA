@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/Ftoolbar"
+        layout="@layout/layout_toolbar"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Ftoolbar"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="55dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/buttn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="8dp"
+        >
+
+        <Button
+            android:id="@+id/conthiring"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Continue Hiring"
+            android:textColor="@color/white"
+            android:textSize="7pt"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="@drawable/button"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            />
+
+        <Button
+            android:id="@+id/addtocart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:gravity="center"
+            android:text="Add to Cart"
+            android:textColor="@color/white"
+            android:textSize="7pt"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/fab_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        style="@style/AddButton"
+        android:layout_above="@+id/buttn"
+        fab:menu_colorNormal="#1E90FF"
+        fab:menu_colorPressed="#32A9F8"
+        fab:menu_showShadow="true"
+        fab:menu_labels_showShadow="true"
+        fab:menu_labels_maxLines="-1"
+        fab:menu_labels_position="left"
+        fab:menu_openDirection="up"
+        app:menu_labels_colorNormal="@color/grey"
+        fab:fab_shadowColor="#66000000"
+        app:menu_fab_size="mini"
+        >
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/floating_chkout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/app_theme"
+            app:fab_label="Checkout"
+            android:src="@drawable/ic_shopping_cart_black_24dp"
+            android:layout_gravity="end"
+            android:layout_marginRight="10dp"
+            app:fab_size="mini"
+            style="@style/AddButton"
+            />
+
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/floating_orderph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/app_theme"
+            app:fab_label="Order on Phone"
+            android:src="@drawable/ic_phone_android_white_24dp"
+            android:layout_gravity="end"
+            android:layout_marginRight="10dp"
+            app:fab_size="mini"
+            style="@style/AddButton"
+            />
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+
+</RelativeLayout>

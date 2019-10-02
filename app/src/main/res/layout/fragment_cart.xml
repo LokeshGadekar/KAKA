@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <include
+        android:id="@+id/Ftoolbar"
+        layout="@layout/layout_toolbar"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Ftoolbar"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="80dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/ttotl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_above="@+id/buttn"
+        android:layout_alignParentEnd="true"
+        android:paddingRight="13dp"
+        android:background="@color/light_grey"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="4dp"
+        >
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="start"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total items : "
+            android:textSize="8pt"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+            />
+        <TextView
+            android:id="@+id/tx_items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8pt"
+            android:textColor="@color/black"
+            android:layout_marginLeft="3dp"
+            />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total : "
+            android:textSize="8pt"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₹"
+            android:textSize="9pt"
+            android:textColor="@color/black"
+            />
+
+
+        <TextView
+            android:id="@+id/total_amt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="9pt"
+            android:textColor="@color/black"
+            />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="8dp"
+        >
+
+        <Button
+            android:id="@+id/conthiring"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Continue Hiring"
+            android:textColor="@color/white"
+            android:textSize="7pt"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="@drawable/button"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            />
+
+        <Button
+            android:id="@+id/button_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:gravity="center"
+            android:text="Next"
+            android:textColor="@color/white"
+            android:textSize="7pt"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</RelativeLayout>

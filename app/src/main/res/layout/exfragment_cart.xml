@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:id="@+id/ll_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        >
+        <include
+            android:id="@+id/Ftoolbar"
+            layout="@layout/layout_toolbar"
+            />
+    </LinearLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/crdview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/ll_toolbar"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="150dp"
+                app:srcCompat="@drawable/wrker"
+                android:layout_gravity="center_vertical"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="One General Worker"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.50dp"
+                    android:background="@color/black"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Time : 9:00 Am to 04:00 Pm"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rate : "
+                        android:textColor="@color/black"
+                        />
+
+                    <TextView
+                        android:id="@+id/tx_pay"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="₹500"
+                        android:textColor="@color/black"
+                        />
+                    <ImageView
+                        android:id="@+id/ic_remove"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_remove_circle_black_24dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="10dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tx_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        />
+                    <ImageView
+                        android:id="@+id/ic_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_add_circle_black_24dp"
+                        android:layout_marginLeft="10dp"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hire From :"
+                        android:textColor="@color/black"
+                        />
+                    <TextView
+                        android:id="@+id/tx_hirefrom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="12/1/19"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hire Up To :"
+                        android:textColor="@color/black"
+                        />
+                    <TextView
+                        android:id="@+id/tx_hireto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="12/1/19"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/crdview2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/crdview"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="150dp"
+                app:srcCompat="@drawable/wrker"
+                android:layout_gravity="center_vertical"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="One Electrician"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.50dp"
+                    android:background="@color/black"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Time : 9:00 Am to 04:00 Pm"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rate : "
+                        android:textColor="@color/black"
+                        />
+
+                    <TextView
+                        android:id="@+id/tx_pay1"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="₹500"
+                        android:textColor="@color/black"
+                        />
+                    <ImageView
+                        android:id="@+id/ic_remove1"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_remove_circle_black_24dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="10dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tx_add1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        />
+                    <ImageView
+                        android:id="@+id/ic_add1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_add_circle_black_24dp"
+                        android:layout_marginLeft="10dp"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hire From :"
+                        android:textColor="@color/black"
+                        />
+                    <TextView
+                        android:id="@+id/tx_hirefrom1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="16/9/19"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hire Up To :"
+                        android:textColor="@color/black"
+                        />
+                    <TextView
+                        android:id="@+id/tx_hireto1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="21/9/19"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/buttn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:paddingBottom="9dp"
+        >
+
+        <Button
+            android:id="@+id/conthiring"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Continue Hiring"
+            android:textColor="@color/white"
+            android:textSize="7pt"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="@drawable/button"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            />
+        <Button
+            android:id="@+id/Next"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="7pt"
+            android:gravity="center"
+            android:background="@drawable/button"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tx_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttn"
+        android:layout_alignParentEnd="true"
+        android:text="Total : ₹1000"
+        android:textColor="@color/blue"
+        android:textStyle="bold"
+        android:gravity="end"
+        android:textAlignment="textEnd"
+        android:textSize="10pt"
+        android:paddingEnd="20dp"
+        />
+
+</RelativeLayout>
