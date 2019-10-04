@@ -53,6 +53,21 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden"
             />
+    <meta-data android:name="instamojo.orderauth.url"
+                   android:value="https://www.lotusenterprises.net/manpower/access_token.php"
+            />
     </application>
+    <uses-permission-sdk-23 android:name="android.permission.RECEIVE_SMS"/>
+ 
+    <uses-permission-sdk-23 android:name="android.permission.READ_SMS"/>
+ 
+    <uses-permission-sdk-23 android:name="android.permission.READ_PHONE_STATE"/>
+ 
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+ 
+    <uses-permission android:name="android.permission.READ_SMS"/>
+ 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+ 
 
 </manifest>

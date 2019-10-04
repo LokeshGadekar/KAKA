@@ -44,6 +44,21 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
             viewHolder.dfrom.setText(ob.getDateFrom());
             viewHolder.dto.setText(ob.getDateTo());
             viewHolder.work.setText(ob.getDescription());
+
+            if (Integer.parseInt(ob.getStatus()) == 0)
+            {
+                viewHolder.status.setText("Pending");
+            }
+
+            else if (Integer.parseInt(ob.getStatus()) == 1)
+            {
+                viewHolder.status.setText("Confirm");
+            }
+
+            else if (Integer.parseInt(ob.getStatus()) == 2)
+            {
+                viewHolder.status.setText("Complete");
+            }
         }
     }
 
@@ -54,11 +69,12 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-        TextView txnm, orderid , dto , dfrom , work, paymode;
+        TextView txnm, orderid , dto , dfrom , work, paymode, status;
 
         public ViewHolder(View itemview) {
             super(itemview);
             txnm = (TextView)itemview.findViewById(R.id.tx_snm);
+            status = (TextView)itemview.findViewById(R.id.tx_status);
             orderid = (TextView) itemview.findViewById(R.id.tx_orderid);
             dfrom = (TextView) itemview.findViewById(R.id.tx_dfr);
             dto = (TextView)itemview.findViewById(R.id.tx_dto);
@@ -66,5 +82,4 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
             paymode = (TextView) itemview.findViewById(R.id.tx_pmode);
         }
     }
-
 }

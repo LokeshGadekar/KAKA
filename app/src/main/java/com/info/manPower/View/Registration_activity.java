@@ -224,6 +224,7 @@ public class Registration_activity extends AppCompatActivity
 
                 if (response.body().getResponce())
                 {
+                    AppPrefrences.setName(Registration_activity.this, response.body().getData().getfName()+" "+response.body().getData().getlName());
                     AppPrefrences.setMobile(Registration_activity.this, response.body().getData().getMobileNo());
                     AppPrefrences.setUserid(Registration_activity.this, response.body().getData().getUserId());
                     AppPrefrences.setMail(Registration_activity.this, response.body().getData().getUserEmail());

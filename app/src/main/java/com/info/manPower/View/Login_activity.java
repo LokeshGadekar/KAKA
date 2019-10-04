@@ -148,8 +148,8 @@ public class Login_activity extends AppCompatActivity
                     if (response.body().getResponce())
                     {
                         Toast.makeText(Login_activity.this, "Logged In...", Toast.LENGTH_SHORT).show();
-                        AppPrefrences.setName(Login_activity.this, response.body().getData().getfName());
-                        AppPrefrences.setMobile(Login_activity.this, response.body().getData().getlName());
+                        AppPrefrences.setName(Login_activity.this, response.body().getData().getfName()+" "+response.body().getData().getlName());
+                        AppPrefrences.setMobile(Login_activity.this, response.body().getData().getMobileNo());
                         AppPrefrences.setUserid(Login_activity.this, response.body().getData().getUserId());
                         AppPrefrences.setMail(Login_activity.this, response.body().getData().getUserEmail());
                         AppPrefrences.setAddress(Login_activity.this, response.body().getData().getAddress());

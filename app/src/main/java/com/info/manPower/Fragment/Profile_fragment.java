@@ -25,6 +25,7 @@ import com.info.manPower.AppUtils.Utilview;
 import com.info.manPower.Model.Profile_responce;
 import com.info.manPower.R;
 import com.info.manPower.View.MainActivity_drawer;
+import com.info.manPower.View.Registration_activity;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
@@ -108,6 +109,7 @@ public class Profile_fragment extends Fragment
                 Log.e("PROFILE RESPONSE.", "-------------------------------------------------");
                 dialog.dismiss();
                 if (response.body().getResponce()) {
+
                     name.setText(""+ response.body().getData().getFName()+"  "+response.body().getData().getLName());
                     mobile.setText(""+response.body().getData().getMobileNo());
                     mail.setText(""+response.body().getData().getUserEmail());

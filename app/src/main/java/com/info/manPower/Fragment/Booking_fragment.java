@@ -71,7 +71,7 @@ public class Booking_fragment extends Fragment
             @Override
             public void onClick(View v) {
                 Utilview.hidekeyboard(getActivity());
-                ((MainActivity_drawer) getActivity()).onBackPressed();
+                ((MainActivity_drawer) getActivity()).openDrawer();
             }
         });
 

@@ -30,6 +30,7 @@ import com.info.manPower.AppUtils.Utilview;
 import com.info.manPower.R;
 import com.info.manPower.View.Login_activity;
 import com.info.manPower.View.MainActivity_drawer;
+import com.instamojo.android.models.Order;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -159,7 +160,7 @@ public class Cart_fragment extends Fragment {
             public void onClick(View v) {
                 if (session_management.isLoggedIn())
                 {
-                C_Order_fragment orfrag = new C_Order_fragment();
+                Order_fragment orfrag = new Order_fragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, orfrag)
                         .addToBackStack(null).commit(); }
                 else

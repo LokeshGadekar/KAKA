@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="10dp"
     >
 
     <LinearLayout
@@ -21,11 +20,19 @@
             />
     </LinearLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_below="@+id/ll_toolbar">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@+id/ll_toolbar"
         android:layout_margin="15dp">
 
         <TextView
@@ -97,9 +104,10 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/edit_text"
             android:layout_marginTop="8dp"
+            android:padding="5dp"
             >
 
         <EditText
@@ -111,7 +119,8 @@
             android:background="@android:color/transparent"
             android:paddingLeft="10dp"
             android:layout_marginTop="4dp"
-            android:inputType="text"
+            android:inputType="textMultiLine"
+            android:singleLine="false"
             android:layout_marginEnd="13pt"
             />
 
@@ -135,36 +144,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Payment Mode"
+            android:text="Payment "
             android:textColor="@color/blue"
             style="@style/bold_tx"
             android:textSize="8pt"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="8dp"
             />
-
-        <RadioGroup
-            android:id="@+id/radiopayment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            >
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Online"/>
-
-             <RadioButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="Cash on Delivery"
-                 android:layout_marginLeft="25dp"
-                 />
-
-        </RadioGroup>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -235,9 +221,10 @@
             android:padding="3dp"
             >
             <TextView
+                android:id="@+id/head_adv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Advance Payment"
+                android:text="Advance "
                 android:textSize="9pt"
                 android:textColor="@color/black"
                 android:layout_marginLeft="20pt"
@@ -247,12 +234,12 @@
                 android:id="@+id/tx_advpay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
                 android:gravity="end"
                 android:layout_marginRight="30pt"
                 android:textStyle="bold"
                 android:textSize="9pt"
                 android:textColor="@color/black"
+                android:singleLine="true"
                 />
 
         </LinearLayout>
@@ -265,21 +252,23 @@
             android:layout_marginTop="10dp"
             />
 
-    </LinearLayout>
+
 
     <Button
         android:id="@+id/place_order"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:text="Place Order"
         android:textColor="@color/white"
-        android:layout_alignParentBottom="true"
         android:textSize="7pt"
         android:textStyle="bold"
         android:gravity="center"
         android:background="@drawable/button"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="12pt"
         />
-
+    </LinearLayout>
+    </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

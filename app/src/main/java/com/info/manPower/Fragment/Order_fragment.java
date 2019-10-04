@@ -1,33 +1,22 @@
 package com.info.manPower.Fragment;
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Criteria;
-import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,38 +24,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.info.manPower.API_retro.API_parameter;
-import com.info.manPower.Adapter.Category_adapter;
-import com.info.manPower.Adapter.SubCategory_adapter;
 import com.info.manPower.AppUtils.AppPrefrences;
 import com.info.manPower.AppUtils.BaseUrl;
 import com.info.manPower.AppUtils.DatabaseHandler;
 import com.info.manPower.AppUtils.HttpHandler;
 import com.info.manPower.AppUtils.Utilview;
-import com.info.manPower.Model.Category_model;
 import com.info.manPower.Model.Order_Responce;
-import com.info.manPower.Model.Subcategory_data;
 import com.info.manPower.R;
 import com.info.manPower.View.MainActivity_drawer;
-import com.info.manPower.View.Registration_activity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -74,27 +46,27 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
+import instamojo.library.InstamojoPay;
+import instamojo.library.InstapayListener;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Order_fragment extends Fragment
-{
+
+public class Order_fragment extends Fragment {
+
     private Button placeOrder;
 
     Toolbar toolbar;
     TextView txToolbar, cnt;
-    ImageView imgToolbar,cart, ic_map;
+    ImageView imgToolbar, cart, ic_map;
     private Activity activity;
-    private TextView subtotal,payable, advpay;
+    private TextView subtotal, payable, advpay, headadv;
     private DatabaseHandler db;
     private EditText name, mobile, mobileopt, landmark, address;
     private RadioGroup radio_payment;
-    private String pay_mode,nam,phone,optphone,landm,addr;
+    private String pay_mode="online", nam, phone, optphone, landm, addr;
     private API_parameter ApiService;
     JSONArray passArray;
     private DatabaseHandler dbcart;
@@ -107,7 +79,7 @@ public class Order_fragment extends Fragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity = (Activity)context;
+        activity = (Activity) context;
     }
 
     @Nullable
@@ -115,7 +87,7 @@ public class Order_fragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_order, container, false);
-        ((MainActivity_drawer)getActivity()).lockDrawer();
+        ((MainActivity_drawer) getActivity()).lockDrawer();
 
         placeOrder = (Button) view.findViewById(R.id.place_order);
 
@@ -130,9 +102,9 @@ public class Order_fragment extends Fragment
         name = (EditText) view.findViewById(R.id.ed_name);
         mobile = (EditText) view.findViewById(R.id.ed_mobile);
         mobileopt = (EditText) view.findViewById(R.id.ed_mobileopt);
+        headadv = (TextView) view.findViewById(R.id.head_adv);
         landmark = (EditText) view.findViewById(R.id.ed_landmark);
         address = (EditText) view.findViewById(R.id.ed_aaddress);
-        radio_payment = (RadioGroup) view.findViewById(R.id.radiopayment);
 
         cart = (ImageView) view.findViewById(R.id.icon_cart);
         cnt = (TextView) view.findViewById(R.id.cart_count);
@@ -151,13 +123,14 @@ public class Order_fragment extends Fragment
             @Override
             public void onClick(View v) {
                 Utilview.hidekeyboard(getActivity());
-                ((MainActivity_drawer)getActivity()).onBackPressed();
+                ((MainActivity_drawer) getActivity()).onBackPressed();
             }
         });
 
-        subtotal.setText("₹"+db.getTotalAmount());
-        payable.setText("₹"+db.getTotalAmount());
-        name.setText(""+ AppPrefrences.getName(getActivity())+"  "+AppPrefrences.getMobile(getActivity()));
+        subtotal.setText("₹" + db.getTotalAmount());
+
+        name.setText("" + AppPrefrences.getName(getActivity()));
+        mobile.setText(""+AppPrefrences.getMobile(getActivity()));
 
         Click_Listeners();
 
@@ -167,14 +140,13 @@ public class Order_fragment extends Fragment
         return view;
     }
 
-    private void Click_Listeners()
-    {
+    private void Click_Listeners() {
         ic_map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-               MapDialog_fragment mapf = new MapDialog_fragment();
-               mapf.show(getFragmentManager(),null);
+                MapDialog_fragment mapf = new MapDialog_fragment();
+                mapf.show(getFragmentManager(), null);
 
             }
         });
@@ -182,14 +154,11 @@ public class Order_fragment extends Fragment
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validate())
-                {
+                if (validate()) {
                     passArray = new JSONArray();
                     make_JSON();
-                    Toast.makeText(activity, "Order Placed...", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+//                    Toast.makeText(activity, "Order Placed...", Toast.LENGTH_SHORT).show();
+                } else {
                     Toast.makeText(getActivity(), "Please fill data correctly...", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -200,10 +169,9 @@ public class Order_fragment extends Fragment
     private final BroadcastReceiver localBroadcastRec = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent!=null)
-            {
+            if (intent != null) {
                 String Faddress = intent.getStringExtra("Addr");
-                address.setText(""+Faddress);
+                address.setText("" + Faddress);
 
                 //Log.e("FINALY Address in Delivery Fragment :","------------------"+intent.getStringExtra("Addr"));
             }
@@ -211,64 +179,47 @@ public class Order_fragment extends Fragment
     };
 
 
-    private  boolean validate()
-    {
+    private boolean validate() {
         nam = name.getText().toString().trim();
         phone = mobile.getText().toString().trim();
         optphone = mobileopt.getText().toString().trim();
         landm = landmark.getText().toString();
         addr = address.getText().toString().trim();
 
-        int sel = radio_payment.getCheckedRadioButtonId();
-        RadioButton pay = getView().findViewById(sel);
-        if (pay!=null)
-        { pay_mode = pay.getText().toString().trim();}
 
-
-        if (nam.matches("") && phone.matches("") && addr.matches("") && landm.matches("") && pay_mode==null)
-        {
-            Toast.makeText(getActivity(), "Please fill data correctly", Toast.LENGTH_SHORT).show(); return false;
-        }
-        else if (nam.matches(""))
-        {
-            Toast.makeText(getActivity(), "Please enter Name", Toast.LENGTH_SHORT).show();  return false;
-        }
-        else if (!validCellPhone(phone))
-        {
-            Toast.makeText(getActivity(), "Please enter valid mobile no.", Toast.LENGTH_SHORT).show();  return false;
-        }
-        else if (landm.matches(""))
-        {
-            Toast.makeText(getActivity(), "Please enter landmark", Toast.LENGTH_SHORT).show(); return false;
-        }
-        else if (addr.matches(""))
-        {
-            Toast.makeText(getActivity(), "Please enter address", Toast.LENGTH_SHORT).show(); return false;
-        }
-        else if (pay_mode==null)
-        {
-            Toast.makeText(getActivity(), "Please select payment mode", Toast.LENGTH_SHORT).show(); return false;
-        }
-        else
-        {
+        if (nam.matches("") && phone.matches("") && addr.matches("") && landm.matches("")) {
+            Toast.makeText(getActivity(), "Please fill data correctly", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (nam.matches("")) {
+            Toast.makeText(getActivity(), "Please enter Name", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (!validCellPhone(phone)) {
+            Toast.makeText(getActivity(), "Please enter valid mobile no.", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (landm.matches("")) {
+            Toast.makeText(getActivity(), "Please enter landmark", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (addr.matches("")) {
+            Toast.makeText(getActivity(), "Please enter address", Toast.LENGTH_SHORT).show();
+            return false;
+        }  else {
             return true;
         }
     }
 
-    private void make_JSON()
-    {
+    private void make_JSON() {
         int cnt = 0;
 
         ArrayList<HashMap<String, String>> dlist = db.getCartAll();
 
-        Log.e("Order Fragment ","------------------------------------"+dlist.get(0));
+        Log.e("Order Fragment ", "------------------------------------" + dlist.get(0));
 
 
-        for (int i=0 ; i<dlist.size() ; i++) {
+        for (int i = 0; i < dlist.size(); i++) {
 
             cnt++;
 
-            Log.e("Order Fragment ","------------------------------------");
+            Log.e("Order Fragment ", "------------------------------------");
 
             HashMap<String, String> cob = dlist.get(i);
 
@@ -287,11 +238,11 @@ public class Order_fragment extends Fragment
 
             try {
                 jObj.put("user_id", userid);
-                jObj.put("payment_mode",pay_mode);
-                jObj.put("address",addr);
+                jObj.put("payment_mode", pay_mode);
+                jObj.put("address", addr);
                 jObj.put("sub_cat_no", qty);                        // give count of number of helpers
                 jObj.put("sub_cat_id", subcatid);
-                jObj.put("p_cat_id",catid);
+                jObj.put("p_cat_id", catid);
                 jObj.put("date_from", dfrom);
                 jObj.put("date_to", dto);
                 jObj.put("description", workdetail);
@@ -301,6 +252,8 @@ public class Order_fragment extends Fragment
             }
         }
         if (cnt == dlist.size()) {
+            Log.e("INSTAMOJO CALL___",""+AppPrefrences.getMail(getActivity())+" --- "+phone+" --- "+advance+" --- "+pay_mode+" --- "+nam);
+            //callInstamojoPay(AppPrefrences.getMail(getActivity()),phone,""+10,pay_mode,nam);
             Call_Order(passArray);
             Log.e("JSON ARRAY IS >>> ", "" + passArray);
             Log.e(" SIZE ......... ", " COUNT ........ " + cnt + "...... List Size is ..... " + dlist.size() + " |||||  DATABASE COUNT " + dbcart.getCartCount());
@@ -308,10 +261,7 @@ public class Order_fragment extends Fragment
     }
 
 
-
-
-    private void Call_Order(JSONArray jsonarray)
-    {
+    private void Call_Order(JSONArray jsonarray) {
         final ProgressDialog dialog;
         dialog = new ProgressDialog(getActivity());
         dialog.setMessage("Processing");
@@ -325,7 +275,8 @@ public class Order_fragment extends Fragment
                 Log.e("ORDER RESPONSE ...", "-------------------------------------------------");
                 dialog.dismiss();
                 if (response.body().getResponce()) {
-
+                    Clear_ed();
+                    Toast.makeText(activity, "Order Placed...", Toast.LENGTH_SHORT).show();
                 } else if (!response.body().getResponce()) {
                     Toast.makeText(getActivity(), "No Data( false )", Toast.LENGTH_SHORT).show();
                 } else {
@@ -345,8 +296,7 @@ public class Order_fragment extends Fragment
     }
 
 
-    class Advance_pay extends AsyncTask<String, String, String>
-    {
+    class Advance_pay extends AsyncTask<String, String, String> {
         String output = "";
         String url;
         ProgressDialog dialog;
@@ -379,6 +329,7 @@ public class Order_fragment extends Fragment
 
         @Override
         protected void onPostExecute(String s) {
+            String adv="";
             super.onPostExecute(s);
             if (output == null) {
                 dialog.dismiss();
@@ -392,172 +343,80 @@ public class Order_fragment extends Fragment
 
                         JSONObject c = Data_array.getJSONObject(i);
                         String id = c.getString("id");
-                        String adv = c.getString("advance");
+                        adv = c.getString("advance");
                         advance = Double.parseDouble(adv);
-                        Log.e("ORDER ADVANCE..."," --- "+id+" --- "+adv);
+                        Log.e("ORDER ADVANCE...", " --- " + id + " --- " + adv);
                     }
-                    Log.e("ORDER ADVANCE... ", "---------------------"+advance+"----------------------------");
-                    advance = (advance * Double.parseDouble(db.getTotalAmount()))/100 ;
-                    Log.e("ADVANCE VALUES ___","___________advance % "+advance+" _________Total Amount_____ "+Double.parseDouble(db.getTotalAmount()));
-                    advpay.setText("₹"+advance);
-                }
-                catch (JSONException e) {
+                    Log.e("ORDER ADVANCE... ", "---------------------" + advance + "----------------------------");
+                    advance = (advance * Double.parseDouble(db.getTotalAmount())) / 100;
+                    Log.e("ADVANCE VALUES ___", "___________advance % " + advance + " _________Total Amount_____ " + Double.parseDouble(db.getTotalAmount()));
+                    headadv.setText("Advance "+ "("+adv+"%)");
+                    advpay.setText("₹" + advance);
+                    payable.setText("₹" + (Integer.parseInt(dbcart.getTotalAmount())-advance));
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }
     }
 
-   ////////////// Google Map /////////////////////////////
+    ///   INSTA_MOJO PAYMENT /////////////
 
+    private void callInstamojoPay(String email, String phone, String amount, String purpose, String buyername) {
+        final Activity activity = getActivity();
+//      String  Payment_method = radio_online_pay.getText().toString();
 
-    private void Check_Permission(SupportMapFragment mMap)
-    {
-        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
-                        PackageManager.PERMISSION_GRANTED) {
-            LocationManager locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
-            Criteria criteria = new Criteria();
-            String provider = locationManager.getBestProvider(criteria, true);
-            locationC = locationManager.getLastKnownLocation(provider);
-            getMAP(mMap);
+        InstamojoPay instamojoPay = new InstamojoPay();
+        IntentFilter filter = new IntentFilter("ai.devsupport.instamojo");
+        getActivity().registerReceiver(instamojoPay, filter);
+        JSONObject pay = new JSONObject();
+        try {
+            pay.put("email", email);
+            pay.put("phone", phone);
+            pay.put("purpose", purpose);
+            pay.put("amount", amount);
+            pay.put("name", buyername);
+            pay.put("send_sms", true);
+            pay.put("send_email", true);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
-        else {
-            if (Build.VERSION.SDK_INT >= 23) {
-                requestPermissions(new String[] {
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION },8);
-
-              /*  ActivityCompat.requestPermissions(getActivity(), new String[] {
-                            Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION },
-                    8);*/
-                //Toast.makeText(getActivity(),"Allow Required Permission", Toast.LENGTH_LONG).show();
-
-            } }
+        initListener();
+        instamojoPay.start(activity, pay, listener);
     }
 
+    InstapayListener listener;
 
-
-    private void getMAP(SupportMapFragment mMap) {
-        mMap.getMapAsync(new OnMapReadyCallback() {
+    private void initListener() {
+        listener = new InstapayListener() {
+            @Override
+            public void onSuccess(String response) {
+                //   pay_status = "Success";
+                Toast.makeText(activity, "Payment Success", Toast.LENGTH_SHORT).show();
+                Call_Order(passArray);
+            }
 
             @Override
-            public void onMapReady(final GoogleMap mMap) {
-
-                googleMap = mMap;
-                googleMap.setMyLocationEnabled(true);
-
-                //        Geoaddress(googleMap.getMyLocation().getLatitude(),googleMap.getMyLocation().getLongitude());
-
-                if (locationC!=null) {
-                    CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(locationC.getLatitude(), locationC.getLongitude()));
-                    CameraUpdate zoom = CameraUpdateFactory.zoomTo(19);
-                    mMap.getUiSettings().setZoomControlsEnabled(true);
-                    googleMap.moveCamera(center);
-                    googleMap.animateCamera(zoom);
-                }
-             /*   LatLng latLng = new LatLng(locationCt.getLatitude(),
-                        locationCt.getLongitude());
-                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,10);
-                    mMap.moveCamera(cameraUpdate);
-                    googleMap.moveCamera(cameraUpdate);
-                    googleMap.animateCamera(cameraUpdate);
-                    mMap.addMarker(new MarkerOptions().position(latLng).title("Current Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-                   Geoaddress(locationCt.getLatitude(), locationCt.getLongitude());*/
-
-                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        googleMap.clear();
-
-                        Geoaddress(latLng.latitude, latLng.longitude);
-
-                        //Log.e("Latitude : "+latitude,"Longitude : "+longitude);
-
-                        googleMap.addMarker(new MarkerOptions().position(latLng).title("Custom Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-                        // Toast.makeText(getActivity(), "lat long is" + latLng, Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-                if (googleMap != null) {
-                    Toast.makeText(getActivity(), "not null", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
-                }
+            public void onFailure(int i, String s) {
+                        Log.e("Error "," Pay "+s+"________________"+i);
             }
-        });
+
+
+            /// eof INSTA_MOJO PAYMENT /////////////
+        };
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case 8: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                    Toast.makeText(getActivity(), "Permission granted", Toast.LENGTH_SHORT).show();
-                    mMap.getMapAsync(new OnMapReadyCallback() {
-                        @Override
-                        public void onMapReady(GoogleMap googleMap) {
-                            googleMap.setMyLocationEnabled(true);
-                            googleMap.getMyLocation();
-                        }
-                    });
-                    LocationManager locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
-                    Criteria criteria = new Criteria();
-                    String provider = locationManager.getBestProvider(criteria, true);
-                    try {   locationC = locationManager.getLastKnownLocation(provider); }
-                    catch (SecurityException ex)
-                    {  ex.printStackTrace();     }
-                    //getMAP();
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                    Toast.makeText(getActivity(), "Permission denied", Toast.LENGTH_SHORT).show();
-                }
-                return;
-            }
-        }
-    }
-
-
-    private void Geoaddress(double latitude, double longitude) {
-        try {
-            Geocoder geo = new Geocoder(getActivity(), Locale.ENGLISH);
-            List<Address> addresses = geo.getFromLocation(latitude, longitude, 1);
-            if (addresses.isEmpty()) {
-                //yourtextfieldname.setText("Waiting for Location");
-            } else {
-                if (addresses.size() > 0) {
-
-                    String saddress = addresses.get(0).getAddressLine(0);
-                    Toast.makeText(getActivity(), ""+saddress, Toast.LENGTH_SHORT).show();
-                    // Intent in = new Intent("StringAddr");
-                    // in.putExtra("Addr", saddress);
-                    // LocalBroadcastManager.getInstance(getContext()).sendBroadcast(in);
-                    getFragmentManager().popBackStack();
-
-                    Log.e("address is", "" + addresses.get(0).getAddressLine(0));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace(); // getFromLocation() may sometimes fail
-        }
-    }
-
-
-  /////////////  end of Goole Map //////////////////////////////
-
-    public boolean validCellPhone(String number)
+    private void Clear_ed()
     {
-        return  !TextUtils.isEmpty(number) && (number.length()==10) && android.util.Patterns.PHONE.matcher(number).matches();
+        name.getText().clear();
+        mobile.getText().clear();
+        mobileopt.getText().clear();
+        landmark.getText().clear();
+        address.getText().clear();
     }
+
+
+        public boolean validCellPhone(String number) {
+            return !TextUtils.isEmpty(number) && (number.length() == 10) && android.util.Patterns.PHONE.matcher(number).matches();
+        }
 }
