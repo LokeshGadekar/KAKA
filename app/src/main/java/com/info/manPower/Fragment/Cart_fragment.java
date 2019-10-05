@@ -30,7 +30,6 @@ import com.info.manPower.AppUtils.Utilview;
 import com.info.manPower.R;
 import com.info.manPower.View.Login_activity;
 import com.info.manPower.View.MainActivity_drawer;
-import com.instamojo.android.models.Order;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -133,16 +132,16 @@ public class Cart_fragment extends Fragment {
 
     private void updateData() {
 
-        String tt = db.getTotalAmount();
+        //String tt = db.getTotalAmount();
+        String tt = ""+db.getdaystotal();
         cart_count.setText(""+db.getCartCount());
         tx_Total.setText(""+tt);
         tx_items.setText(""+db.getCartCount());
-        Log.e("TTTOOTTAALL >>> ","  >>>>>>>>>>> "+tt);
-
+        Log.e("TTTOOTTAALL >>> ","  >>>>>>>>>>> "+tt+" __________________________ "+db.getdaystotal());
     }
 
     private void home() {
-        home_fragment hm = new home_fragment();
+        Home_fragment hm = new Home_fragment();
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, hm)
                 .addToBackStack(null).commit();
     }

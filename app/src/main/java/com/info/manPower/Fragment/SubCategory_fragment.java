@@ -28,6 +28,7 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.google.gson.Gson;
 import com.info.manPower.API_retro.API_parameter;
 import com.info.manPower.Adapter.SubCategory_adapter;
+import com.info.manPower.AppUtils.AppPrefrences;
 import com.info.manPower.AppUtils.BaseUrl;
 import com.info.manPower.AppUtils.DatabaseHandler;
 import com.info.manPower.AppUtils.Utilview;
@@ -226,8 +227,13 @@ public class SubCategory_fragment extends Fragment {
         fabphone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "997789898"));
-                startActivity(intent);
+                try {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + AppPrefrences.getOrderPhone(getActivity())));
+                startActivity(intent);}
+                catch (Exception ex)
+                {              ex.printStackTrace();
+                    Toast.makeText(activity, "Error No Sim Card Found......", Toast.LENGTH_SHORT).show();
+                    }
             }
         });
 

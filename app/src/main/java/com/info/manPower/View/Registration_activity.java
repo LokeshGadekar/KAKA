@@ -27,7 +27,6 @@ import com.info.manPower.AppUtils.BaseUrl;
 import com.info.manPower.AppUtils.Internet_Connectivity;
 import com.info.manPower.AppUtils.Session_management;
 import com.info.manPower.AppUtils.Utilview;
-import com.info.manPower.Fragment.home_fragment;
 import com.info.manPower.Model.Registration_Responce;
 import com.info.manPower.R;
 
@@ -45,8 +44,8 @@ public class Registration_activity extends AppCompatActivity
     private Button Register;
 
     Toolbar toolbar;
-    TextView txToolbar;
-    ImageView imgToolbar;
+    TextView txToolbar,cnt;
+    ImageView imgToolbar,cart;
     private FragmentManager fragmentmanager;
     private FragmentTransaction fragmentTransaction;
     private Fragment fragment;
@@ -74,6 +73,10 @@ public class Registration_activity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         txToolbar = (TextView) findViewById(R.id.txToolbar);
         imgToolbar = (ImageView) findViewById(R.id.imgToolbar);
+        cart = (ImageView) findViewById(R.id.cart);
+        cnt = (TextView) findViewById(R.id.cart_count);
+        cart.setVisibility(View.GONE);
+        cnt.setVisibility(View.GONE);
 
         txToolbar.setText("Register");
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);

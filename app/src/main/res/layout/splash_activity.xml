@@ -7,13 +7,21 @@
     android:background="@color/app_theme"
     >
 
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/app_logo"
+        android:layout_above="@+id/app_nm"
+        android:layout_centerHorizontal="true"
+        />
+
     <TextView
         android:id="@+id/app_nm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15pt"
         android:textStyle="bold"
-        android:text="Man Power"
+        android:text="@string/app_name"
         android:fontFamily="sans-serif-medium"
         android:textColor="@color/white"
         android:gravity="center"

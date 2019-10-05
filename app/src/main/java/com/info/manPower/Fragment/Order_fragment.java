@@ -127,7 +127,7 @@ public class Order_fragment extends Fragment {
             }
         });
 
-        subtotal.setText("₹" + db.getTotalAmount());
+        subtotal.setText("₹" + db.getdaystotal());
 
         name.setText("" + AppPrefrences.getName(getActivity()));
         mobile.setText(""+AppPrefrences.getMobile(getActivity()));
@@ -348,11 +348,13 @@ public class Order_fragment extends Fragment {
                         Log.e("ORDER ADVANCE...", " --- " + id + " --- " + adv);
                     }
                     Log.e("ORDER ADVANCE... ", "---------------------" + advance + "----------------------------");
-                    advance = (advance * Double.parseDouble(db.getTotalAmount())) / 100;
-                    Log.e("ADVANCE VALUES ___", "___________advance % " + advance + " _________Total Amount_____ " + Double.parseDouble(db.getTotalAmount()));
+                    //advance = (advance * Double.parseDouble(db.getTotalAmount())) / 100;
+                    advance = (advance * Double.parseDouble(""+db.getdaystotal())) / 100;
+                    Log.e("ADVANCE VALUES ___", "___________advance % " + advance + " _________Total Amount_____ " + Double.parseDouble(""+db.getdaystotal()));
                     headadv.setText("Advance "+ "("+adv+"%)");
                     advpay.setText("₹" + advance);
-                    payable.setText("₹" + (Integer.parseInt(dbcart.getTotalAmount())-advance));
+                    long ftotl = (long)(dbcart.getdaystotal() - advance);
+                    payable.setText("₹" + ftotl);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

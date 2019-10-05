@@ -1,9 +1,11 @@
 package com.info.manPower.View;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,13 +18,14 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.info.manPower.AppUtils.AppPrefrences;
 import com.info.manPower.AppUtils.DatabaseHandler;
+import com.info.manPower.AppUtils.HttpHandler;
 import com.info.manPower.AppUtils.Session_management;
 import com.info.manPower.BuildConfig;
 import com.info.manPower.Fragment.Booking_fragment;
-import com.info.manPower.Fragment.Cart_fragment;
+import com.info.manPower.Fragment.Enquiry_Fragment;
+import com.info.manPower.Fragment.Home_fragment;
 import com.info.manPower.Fragment.Profile_fragment;
 import com.info.manPower.Fragment.Support_fragment;
-import com.info.manPower.Fragment.home_fragment;
 import com.info.manPower.R;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -30,11 +33,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -71,15 +78,16 @@ public class MainActivity_drawer extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        new GetOrder_Phone().execute();
         dbcart = new DatabaseHandler(MainActivity_drawer.this);
         sessionManagement = new Session_management(MainActivity_drawer.this);
 
-        fragment = new home_fragment();
+        fragment = new Home_fragment();
         fragmentmanager = getSupportFragmentManager();
         fragmentTransaction =fragmentmanager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_layout,fragment);
         fragmentTransaction.commit();
-
+//        fragmentTransaction.addToBackStack(null);
         setUpNavigationView();
 
         check_Login_Status();
@@ -170,11 +178,13 @@ public class MainActivity_drawer extends AppCompatActivity {
            switch (item.getItemId()) {
 
                case R.id.nav_home:
-                   fragment = new home_fragment();
+                   fragment = new Home_fragment();
                    fragmentmanager = getSupportFragmentManager();
+                   fragmentmanager.popBackStack();
                    fragmentTransaction = fragmentmanager.beginTransaction();
                    fragmentTransaction.replace(R.id.fragment_layout,fragment);
                    fragmentTransaction.commit();
+
                    closeDrawer();
                    break;
 
@@ -187,10 +197,12 @@ public class MainActivity_drawer extends AppCompatActivity {
                   else {
                   fragment = new Profile_fragment();
                   fragmentmanager = getSupportFragmentManager();
+                      fragmentmanager.popBackStack();
                   fragmentTransaction = fragmentmanager.beginTransaction();
                   fragmentTransaction.replace(R.id.fragment_layout,fragment);
-                  fragmentTransaction.addToBackStack(null);
+                  fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
                   fragmentTransaction.commit();
+//                      fragment.getActivity().finish();
                   lockDrawer();
                   closeDrawer(); }
                   break;
@@ -202,22 +214,39 @@ public class MainActivity_drawer extends AppCompatActivity {
                    else
                    { fragment = new Booking_fragment();
                        fragmentmanager = getSupportFragmentManager();
+                       fragmentmanager.popBackStack();
                        fragmentTransaction = fragmentmanager.beginTransaction();
                        fragmentTransaction.replace(R.id.fragment_layout,fragment);
-                       fragmentTransaction.addToBackStack(null);
+//                       fragmentTransaction.addToBackStack(null);
+                       fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
                        fragmentTransaction.commit();
+//                       fragment.getActivity().finish();
                        lockDrawer();
                    }                   break;
+
+               case R.id.nav_enquiry:
+                   fragment = new Enquiry_Fragment();
+                   fragmentmanager = getSupportFragmentManager();
+                   fragmentmanager.popBackStack();
+                   fragmentTransaction = fragmentmanager.beginTransaction();
+                   fragmentTransaction.replace(R.id.fragment_layout,fragment);
+                   fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
+                   fragmentTransaction.commit();
+//                   fragment.getActivity().finish();
+                   closeDrawer();
+                   break;
 
                case R.id.nav_support:
                    fragment = new Support_fragment();
                    bn.putString("Desc","Support");
                    fragment.setArguments(bn);
                    fragmentmanager = getSupportFragmentManager();
+                   fragmentmanager.popBackStack();
                    fragmentTransaction = fragmentmanager.beginTransaction();
                    fragmentTransaction.replace(R.id.fragment_layout,fragment);
-                   fragmentTransaction.addToBackStack(null);
+                   fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
                    fragmentTransaction.commit();
+//                   fragment.getActivity().finish();
                    lockDrawer();
                    closeDrawer();
                    break;
@@ -227,10 +256,12 @@ public class MainActivity_drawer extends AppCompatActivity {
                    bn.putString("Desc","About");
                    fragment.setArguments(bn);
                    fragmentmanager = getSupportFragmentManager();
+                   fragmentmanager.popBackStack();
                    fragmentTransaction = fragmentmanager.beginTransaction();
                    fragmentTransaction.replace(R.id.fragment_layout,fragment);
-                   fragmentTransaction.addToBackStack(null);
+                   fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
                    fragmentTransaction.commit();
+//                   fragment.getActivity().finish();
                    lockDrawer();
                    closeDrawer();
                    break;
@@ -240,10 +271,12 @@ public class MainActivity_drawer extends AppCompatActivity {
                    bn.putString("Desc","Terms");
                    fragment.setArguments(bn);
                    fragmentmanager = getSupportFragmentManager();
+                   fragmentmanager.popBackStack();
                    fragmentTransaction = fragmentmanager.beginTransaction();
                    fragmentTransaction.replace(R.id.fragment_layout,fragment);
-                   fragmentTransaction.addToBackStack(null);
+                   fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
                    fragmentTransaction.commit();
+//                   fragment.getActivity().finish();
                    lockDrawer();
                    closeDrawer();
                    break;
@@ -264,9 +297,13 @@ public class MainActivity_drawer extends AppCompatActivity {
                    break;
 
                case R.id.nav_orderphone:
-                   Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "997789898"));
-                   startActivity(intent);
-                   break;
+                   try {
+                   Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + AppPrefrences.getOrderPhone(activity)));
+                   startActivity(intent);}
+                   catch (Exception ex)
+                   {   ex.printStackTrace();
+                       Toast.makeText(activity, "Error No Sim Card Found......", Toast.LENGTH_SHORT).show();
+                                          }                   break;
 
                case R.id.nav_share:
                    shareApp();
@@ -290,7 +327,62 @@ public class MainActivity_drawer extends AppCompatActivity {
         } catch(Exception e) {
             //e.toString();
         }
+    }
 
+
+
+    class GetOrder_Phone extends AsyncTask<String, String, String>
+    {
+        String output = "", url;
+        ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            dialog = new ProgressDialog(activity);
+            dialog.setMessage("Processing");
+            dialog.setCancelable(true);
+            dialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+                url = "https://www.lotusenterprises.net/manpower/Api/get_contact";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Log.e("sever_url>>>>>>>>>", url);
+            output = HttpHandler.makeServiceCall(url);
+            //   Log.e("getcomment_url", output);
+            System.out.println("ORDER ONPHONE RESPONSE " + output);
+            return output;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            if (output == null) {
+                dialog.dismiss();
+            } else {
+                try {
+                    dialog.dismiss();
+                    JSONObject obj = new JSONObject(output);
+                    String responce = obj.getString("responce");
+                    JSONObject job = obj.getJSONObject("data");
+
+                    String id = job.getString("id");
+                    String number = job.getString("contact");
+                    String date = job.getString("date");
+
+                    AppPrefrences.setOrderPhone(activity,number);
+                    Log.e("ORDER ONPHONE RESPONSE ", "------------"+number+"-------------------------------------");
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            super.onPostExecute(s);
+        }
     }
 }
 

@@ -14,8 +14,13 @@
             android:id="@+id/nav_booking"
             android:title="My Booking" />
         <item
+            android:visible="false"
             android:id="@+id/nav_payhistory"
             android:title="Payment History" />
+
+        <item
+            android:id="@+id/nav_enquiry"
+            android:title="Enquiry"/>
         <item
             android:id="@+id/nav_aboutus"
             android:title="About Us" />

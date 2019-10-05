@@ -2,11 +2,14 @@ package com.info.manPower.API_retro;
 
 import com.info.manPower.Model.Booking_Responce;
 import com.info.manPower.Model.Cart_Responce;
+import com.info.manPower.Model.Enquiry_Responce;
 import com.info.manPower.Model.Order_Post;
 import com.info.manPower.Model.Profile_responce;
 import com.info.manPower.Model.Registration_Responce;
 import com.info.manPower.Model.Order_Responce;
+import com.info.manPower.Model.Slider_Responce;
 import com.info.manPower.Model.Subcategory_Responce;
+import com.info.manPower.Model.Suborder_Responce;
 import com.info.manPower.Model.Support_Responce;
 import com.info.manPower.Model.UpdateProfile_Responce;
 
@@ -48,6 +51,9 @@ public interface API_parameter
     @GET("get_terms")
     Call<Support_Responce> TERMS_CALL();
 
+    @GET("get_slider")
+    Call<Slider_Responce> SLIDER_CALL();
+
     @FormUrlEncoded
     @POST("get_subcategory")
     Call<Subcategory_Responce> SubCategory_CALL(
@@ -82,8 +88,30 @@ public interface API_parameter
     );
 
     @FormUrlEncoded
-    @POST("get_order")
+    @POST("get_order_cat")
     Call<Booking_Responce> BOOKING_CALL(
         @Field("user_id")String userid
     );
+
+    @FormUrlEncoded
+    @POST("get_order")
+    Call<Suborder_Responce> SUBORDER_CALL(
+            @Field("user_id")String userid,
+            @Field("order_id")String orderid
+    );
+
+    @FormUrlEncoded
+    @POST("contractual_worker")
+    Call<Enquiry_Responce> ENQUIRY_CALL(
+      @Field("name")String name,
+      @Field("mobile_no")String mobile,
+      @Field("address_one")String address1,
+      @Field("address_two")String address2,
+      @Field("worker_no")String wnum,
+      @Field("description")String wdesc,
+      @Field("worker_cat")String catid,
+      @Field("cat_name")String ctname,
+      @Field("e_d_h")String date
+    );
+
 }

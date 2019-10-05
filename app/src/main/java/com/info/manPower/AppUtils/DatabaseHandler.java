@@ -7,8 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class DatabaseHandler extends SQLiteOpenHelper
 {
@@ -135,6 +139,44 @@ public class DatabaseHandler extends SQLiteOpenHelper
         }
     }
 
+    public long getdaystotal() {
+        long p_total = 0;
+        db = getReadableDatabase();
+
+        String qry = "Select *  from " + CART_TABLE;
+        Cursor cursor = db.rawQuery(qry, null);
+        cursor.moveToFirst();
+
+        if (cursor!=null) {
+
+            for (int i = 0; i < cursor.getCount(); i++) {
+
+                long days=0;
+
+                String dat1 = cursor.getString(cursor.getColumnIndex("date_from"));
+                String dat2 = cursor.getString(cursor.getColumnIndex("date_to"));
+                Date date1,date2;
+                SimpleDateFormat myFormat = new SimpleDateFormat("dd-MM-yyyy");
+                try {
+                    date1 = myFormat.parse(dat1);
+                    date2 = myFormat.parse(dat2);
+                    long diff = date2.getTime() - date1.getTime();
+                    days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1;
+                    System.out.println ("SQLITE___Days: _____________________________" + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)+" -------------------- "+days);
+                }catch (ParseException pex)
+                {
+                    pex.printStackTrace();
+                }
+            p_total = p_total + (long) (days *( cursor.getInt(cursor.getColumnIndex("num_helpers")) *
+                                         cursor.getDouble(cursor.getColumnIndex("unit_value")) ));
+                cursor.moveToNext();
+            }
+            return p_total;
+        }
+        return 0;
+    }
+
+
     public boolean isInCart(String id) {
         db = getReadableDatabase();
         String qry = "Select *  from " + CART_TABLE + " where " + COLUMN_UID + " = " + id;
@@ -159,7 +201,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 
     public void removeItemFromCart(String id) {
         db = getReadableDatabase();
-        db.execSQL("delete from " + CART_TABLE + " where " + COLUMN_SCAT_ID + " = " + id);
+        db.execSQL("delete from " + CART_TABLE + " where " + COLUMN_UID + " = " + id);
     }
 
     @Override

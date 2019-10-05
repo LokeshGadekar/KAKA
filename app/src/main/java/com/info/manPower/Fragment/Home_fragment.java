@@ -23,12 +23,16 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.info.manPower.API_retro.API_parameter;
 import com.info.manPower.Adapter.Category_adapter;
 import com.info.manPower.Adapter.Slider_adapter;
+import com.info.manPower.AppUtils.BaseUrl;
 import com.info.manPower.AppUtils.DatabaseHandler;
 import com.info.manPower.AppUtils.HttpHandler;
 import com.info.manPower.AppUtils.Internet_Connectivity;
 import com.info.manPower.Model.Category_model;
+import com.info.manPower.Model.Slider_Responce;
 import com.info.manPower.R;
 import com.info.manPower.View.MainActivity_drawer;
 import com.smarteist.autoimageslider.IndicatorAnimations;
@@ -44,8 +48,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class home_fragment extends Fragment
+public class Home_fragment extends Fragment
 {
     Toolbar toolbar;
     TextView txToolbar, cart_count;
@@ -61,6 +68,8 @@ public class home_fragment extends Fragment
 
     private List<Category_model> categorylist;
     private DatabaseHandler dbcart;
+    Slider_adapter sadapter;
+    private API_parameter ApiService;
 
     @Override
     public void onAttach(Context context) {
@@ -85,8 +94,7 @@ public class home_fragment extends Fragment
 
         dbcart = new DatabaseHandler(getActivity());
         categorylist = new ArrayList<>();
-
-
+        ApiService = BaseUrl.getAPIService();
 
         init_Slider();
         if (Internet_Connectivity.isConnected(getActivity()))
@@ -97,7 +105,7 @@ public class home_fragment extends Fragment
             pDialog.setContentText("No Internet Connection !");
             pDialog.show();       }
 
-        txToolbar.setText("Man Power");
+        txToolbar.setText("KAKA");
         toolbar.setNavigationIcon(R.drawable.menu1);
         cart.setVisibility(View.VISIBLE);
 
@@ -117,13 +125,37 @@ public class home_fragment extends Fragment
 
     private void init_Slider()
     {
-        final Slider_adapter adapter = new Slider_adapter(getActivity());
-        adapter.setCount(6);
+        ApiService.SLIDER_CALL().enqueue(new Callback<Slider_Responce>() {
+            @Override
+            public void onResponse(Call<Slider_Responce> call, Response<Slider_Responce> response) {
+                Log.e("SLIDER RESPONSE ...", "" + new Gson().toJson(response.body()));
+                Log.e("SLIDER RESPONSE ...", "-------------------------------------------------");
 
-        sliderView.isAutoCycle();
-        sliderView.setAutoCycle(true);
-        sliderView.setScrollTimeInSec(2);
-        sliderView.setSliderAdapter(adapter);
+                if (response.body().getResponce()) {
+
+                    sadapter = new Slider_adapter(getActivity(),response.body().getData());
+                    sadapter.setCount(response.body().getData().size());
+
+                    sliderView.isAutoCycle();
+                    sliderView.setAutoCycle(true);
+                    sliderView.setScrollTimeInSec(2);
+                    sliderView.setSliderAdapter(sadapter);
+
+                    //Toast.makeText(activity, "Order Placed...", Toast.LENGTH_SHORT).show();
+                } else if (!response.body().getResponce()) {
+                    Toast.makeText(getActivity(), "No Data( false )", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Error while Connecting...", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Slider_Responce> call, Throwable t) {
+                Log.e("error at call", "" + t.getLocalizedMessage());
+                Log.e("error at call", "" + t.getMessage());
+                Log.e("error at call", "" + t.getCause());
+            }
+        });
 
         sliderView.setIndicatorAnimation(IndicatorAnimations.SLIDE); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
         sliderView.setSliderTransformAnimation(SliderAnimations.CUBEINROTATIONTRANSFORMATION);
@@ -229,5 +261,31 @@ public class home_fragment extends Fragment
              super.onPostExecute(s);
          }
      }
+
+    @Override
+    public void onDetach() {
+        //Toast.makeText(activity, "Detached", Toast.LENGTH_SHORT).show();
+//        Home_fragment.this.getView().clearFocus();
+
+        super.onDetach();
+    }
+
+    @Override
+    public void onDestroy() {
+        //Toast.makeText(activity, "Destroyed", Toast.LENGTH_SHORT).show();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+//        Home_fragment.this.getView().clearFocus();
+        //Toast.makeText(activity, "count is"+getFragmentManager().getBackStackEntryCount(), Toast.LENGTH_SHORT).show();
+//      if(getFragmentManager().getBackStackEntryCount()>0)
+//      {
+//          Home_fragment.this.getFragmentManager().popBackStack();
+//      }
+        //Toast.makeText(activity, "Destroyed view", Toast.LENGTH_SHORT).show();
+        super.onDestroyView();
+    }
 }
 

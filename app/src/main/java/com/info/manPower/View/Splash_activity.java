@@ -7,6 +7,7 @@ import android.view.WindowManager;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.info.manPower.AppUtils.AppPrefrences;
 import com.info.manPower.R;
 
 public class Splash_activity extends AppCompatActivity
@@ -32,9 +33,17 @@ public class Splash_activity extends AppCompatActivity
     }
     private void go_next()
     {
-        Intent in = new Intent(Splash_activity.this, MainActivity_drawer.class);
-        startActivity(in);
-        finish();
+        if (AppPrefrences.getLocation(Splash_activity.this).matches(""))
+        {
+            Intent in = new Intent(Splash_activity.this, Location_activity.class);
+            startActivity(in);
+            finish();
+        }
+        else {
+            Intent in = new Intent(Splash_activity.this, MainActivity_drawer.class);
+            startActivity(in);
+            finish();
+        }
     }
 
 }

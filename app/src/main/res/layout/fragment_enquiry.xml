@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+
+    <include
+        android:id="@+id/ttbar"
+        layout="@layout/layout_toolbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_below="@id/ttbar">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="15dp"
+        android:paddingBottom="10pt"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Worker Type"
+            android:textColor="@color/grey"
+            android:textSize="7pt"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="3dp"
+            />
+
+        <Spinner
+            android:id="@+id/spinner_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:spinnerMode="dropdown"
+            android:padding="3dp"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Number of Worker Required"
+            android:textColor="@color/grey"
+            android:textSize="7pt"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="7pt"
+            />
+
+    <EditText
+        android:id="@+id/ed_numworkers"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@drawable/edit_text"
+        android:paddingLeft="10dp"
+        android:hint="Number of workers"
+        android:textSize="8pt"
+        android:layout_marginTop="4dp"
+        android:singleLine="true"
+        android:inputType="number"
+        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Work Description"
+            android:textColor="@color/grey"
+            android:textSize="7pt"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="7pt"
+            />
+
+        <EditText
+            android:id="@+id/ed_wrkdesc"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/edit_text"
+            android:textSize="8pt"
+            android:hint="Work description"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:singleLine="true"
+            android:inputType="text"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estimated date of hiring"
+            android:textColor="@color/grey"
+            android:textSize="7pt"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="7pt"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/ed_dfrom"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/edit_text"
+            android:hint="dd - mm - yyyy"
+            android:paddingLeft="10dp"
+            android:textSize="8pt"
+            android:layout_marginTop="4dp"
+            android:singleLine="true"
+            android:inputType="number"
+            android:layout_marginEnd="30dp"
+            />
+        <ImageView
+            android:id="@+id/ic_cal"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/calendar"
+            android:layout_marginEnd="4dp"
+            android:layout_alignParentEnd="true"
+            />
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Name"
+            android:textColor="@color/grey"
+            android:textSize="7pt"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="7pt"
+            />
+
+        <EditText
+            android:id="@+id/ed_uname"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/edit_text"
+            android:textSize="8pt"
+            android:hint="Name"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:singleLine="true"
+            android:inputType="text"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Mobile No."
+            android:textColor="@color/grey"
+            android:textSize="7pt"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="7pt"
+            />
+
+        <EditText
+            android:id="@+id/ed_umobile"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/edit_text"
+            android:textSize="8pt"
+            android:hint="Mobile Number"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:singleLine="true"
+            android:inputType="number"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Address 1 "
+            android:textColor="@color/grey"
+            android:textSize="7pt"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="7pt"
+            />
+
+        <EditText
+            android:id="@+id/ed_addr1"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/edit_text"
+            android:textSize="8pt"
+            android:hint="Address 1"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:singleLine="true"
+            android:inputType="text"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Address 2 "
+            android:textColor="@color/grey"
+            android:textSize="7pt"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="7pt"
+            />
+
+        <EditText
+            android:id="@+id/ed_addr2"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/edit_text"
+            android:textSize="8pt"
+            android:hint="Address 2"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:singleLine="true"
+            android:inputType="text"
+            />
+
+        <Button
+            android:id="@+id/button_submit"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/button"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:text="Submit"
+            android:textColor="@color/white"
+            android:textSize="8pt"
+            android:textStyle="bold"
+            android:layout_marginTop="15pt"
+            android:layout_marginBottom="10pt"
+            />
+
+
+    </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

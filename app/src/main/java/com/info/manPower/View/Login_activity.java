@@ -37,10 +37,10 @@ public class Login_activity extends AppCompatActivity
     private EditText edMobile, edPass;
     private Button login;
     private String mobile, pass;
-    private TextView register;
+    private TextView register, cnt;
     Toolbar toolbar;
     TextView txToolbar;
-    ImageView imgToolbar;
+    ImageView imgToolbar, cart;
     Session_management sessionManagement;
 
     private API_parameter ApiService;
@@ -55,6 +55,10 @@ public class Login_activity extends AppCompatActivity
         edPass = (EditText) findViewById(R.id.ed_password);
         login = (Button) findViewById(R.id.buttn_login);
         register = (TextView) findViewById(R.id.tx_register);
+        cart = (ImageView) findViewById(R.id.cart);
+        cnt = (TextView) findViewById(R.id.cart_count);
+        cart.setVisibility(View.GONE);
+        cnt.setVisibility(View.GONE);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         txToolbar = (TextView) findViewById(R.id.txToolbar);

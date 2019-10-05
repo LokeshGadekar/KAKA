@@ -5,30 +5,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class Booking_data
 {
-    @SerializedName("id")
-    @Expose
-    private String id;
     @SerializedName("order_id")
     @Expose
     private String orderId;
-    @SerializedName("sub_cat_id")
+    @SerializedName("user_id")
     @Expose
-    private String subCatId;
-    @SerializedName("description")
+    private String userId;
+    @SerializedName("advance")
     @Expose
-    private String description;
-    @SerializedName("p_cat_id")
-    @Expose
-    private String pCatId;
-    @SerializedName("sub_cat_no")
-    @Expose
-    private String subCatNo;
-    @SerializedName("date_from")
-    @Expose
-    private String dateFrom;
-    @SerializedName("date_to")
-    @Expose
-    private String dateTo;
+    private String advance;
     @SerializedName("status")
     @Expose
     private String status;
@@ -38,17 +23,15 @@ public class Booking_data
     @SerializedName("address")
     @Expose
     private String address;
-    @SerializedName("subcat_name")
+    @SerializedName("date")
     @Expose
-    private String subcatName;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    private String date;
+    @SerializedName("total_amt")
+    @Expose
+    private String totalAmt;
+    @SerializedName("cat_name")
+    @Expose
+    private String catName;
 
     public String getOrderId() {
         return orderId;
@@ -58,52 +41,20 @@ public class Booking_data
         this.orderId = orderId;
     }
 
-    public String getSubCatId() {
-        return subCatId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setSubCatId(String subCatId) {
-        this.subCatId = subCatId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAdvance() {
+        return advance;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getPCatId() {
-        return pCatId;
-    }
-
-    public void setPCatId(String pCatId) {
-        this.pCatId = pCatId;
-    }
-
-    public String getSubCatNo() {
-        return subCatNo;
-    }
-
-    public void setSubCatNo(String subCatNo) {
-        this.subCatNo = subCatNo;
-    }
-
-    public String getDateFrom() {
-        return dateFrom;
-    }
-
-    public void setDateFrom(String dateFrom) {
-        this.dateFrom = dateFrom;
-    }
-
-    public String getDateTo() {
-        return dateTo;
-    }
-
-    public void setDateTo(String dateTo) {
-        this.dateTo = dateTo;
+    public void setAdvance(String advance) {
+        this.advance = advance;
     }
 
     public String getStatus() {
@@ -130,11 +81,26 @@ public class Booking_data
         this.address = address;
     }
 
-    public String getSubcatName() {
-        return subcatName;
+    public String getDate() {
+        return date;
     }
 
-    public void setSubcatName(String subcatName) {
-        this.subcatName = subcatName;
+    public void setDate(String date) {
+        this.date = date;
     }
+
+    public String getTotalAmt() {
+        return totalAmt;
+    }
+
+    public void setTotalAmt(String totalAmt) {
+        this.totalAmt = totalAmt;
+    }
+
+    public String getCatName() {
+        return catName;
+    }
+
+    public void setCatName(String catName) {
+        this.catName = catName;}
 }

@@ -5,14 +5,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Booking_Responce {
-
+public class Suborder_Responce
+{
     @SerializedName("responce")
     @Expose
     private Boolean responce;
     @SerializedName("data")
     @Expose
-    private List<Booking_data> data = null;
+    private List<Suborder_data> data = null;
 
     public Boolean getResponce() {
         return responce;
@@ -22,11 +22,12 @@ public class Booking_Responce {
         this.responce = responce;
     }
 
-    public List<Booking_data> getData() {
+    public List<Suborder_data> getData() {
         return data;
     }
 
-    public void setData(List<Booking_data> data) {
+    public void setData(List<Suborder_data> data) {
         this.data = data;
     }
+
 }

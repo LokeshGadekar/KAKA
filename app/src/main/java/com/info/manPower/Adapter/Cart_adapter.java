@@ -21,9 +21,13 @@ import com.info.manPower.AppUtils.BaseUrl;
 import com.info.manPower.AppUtils.DatabaseHandler;
 import com.info.manPower.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ViewHolder>
 {
@@ -31,6 +35,7 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ViewHolder>
     ArrayList<HashMap<String, String>> dataList;
     List<CardView>cardViewList = new ArrayList<>();
     private DatabaseHandler db;
+    long days=0;
 
     Activity mactivity;
 
@@ -67,20 +72,35 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ViewHolder>
             int num = Integer.parseInt(cob.get("num_helpers"));
             final int onrate = rate/num;
 
+            String dat1 = cob.get("date_from");
+            String dat2 = cob.get("date_to");
+            Date date1,date2;
+            SimpleDateFormat myFormat = new SimpleDateFormat("dd-MM-yyyy");
+            try {
+                date1 = myFormat.parse(dat1);
+                date2 = myFormat.parse(dat2);
+                long diff = date2.getTime() - date1.getTime();
+                days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1;
+                System.out.println (diff+"         "+"Days: _____________________________" + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)+" -------------------- "+days);
+            }catch (ParseException pex)
+            {
+                pex.printStackTrace();
+            }
             viewHolder.txWorkernm.setText(cob.get("subcat_name"));
             viewHolder.txTime.setText(cob.get("time_from")+"  to  "+cob.get("time_to"));
             viewHolder.txFrom.setText(""+cob.get("date_from"));
             viewHolder.txTo.setText(""+cob.get("date_to"));
             viewHolder.txhnum.setText(""+cob.get("num_helpers"));
-            viewHolder.txRate.setText(""+rate);
+            viewHolder.txRate.setText(""+(rate*days));
+            viewHolder.txdays.setText(""+days);
 
             Glide.with(mactivity).load(BaseUrl.baseimg+""+cob.get("image")).into(viewHolder.img);
 
             viewHolder.icAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int n = Integer.parseInt(viewHolder.txRate.getText().toString()) + onrate; // rate
                     int nm = Integer.parseInt(viewHolder.txhnum.getText().toString()) + 1 ;  // number of helpers
+                    int n = (int)days*(nm * onrate); // rate
                     if (nm>=0){
                     viewHolder.txRate.setText(""+n);
                     viewHolder.txhnum.setText(""+nm);
@@ -93,8 +113,9 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ViewHolder>
             viewHolder.icRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int n = Integer.parseInt(viewHolder.txRate.getText().toString()) - onrate;
+                    //int n =(int)days * (Integer.parseInt(viewHolder.txRate.getText().toString()) - onrate);
                     int nm = Integer.parseInt(viewHolder.txhnum.getText().toString()) - 1 ;
+                    int n =(int)days * ( nm * onrate);
                     if (nm>0){
                     viewHolder.txRate.setText(""+n);
                     viewHolder.txhnum.setText(""+nm);
@@ -131,7 +152,7 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ViewHolder>
             viewHolder.icDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    db.removeItemFromCart(cob.get("subcat_id"));
+                    db.removeItemFromCart(cob.get("uid"));
                     updateintent();
                     dataList.remove(i);
                     notifyDataSetChanged();
@@ -148,7 +169,7 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ViewHolder>
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-        TextView tx, txWorkernm, txTime, txRate, txFrom, txTo, txhnum;
+        TextView tx, txWorkernm, txTime, txRate, txFrom, txTo, txhnum, txdays;
         ImageView img, icAdd, icRemove, icDelete;
 
         public ViewHolder(View itemview) {
@@ -163,6 +184,7 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ViewHolder>
             icRemove = (ImageView) itemview.findViewById(R.id.ic_remove);
             img = (ImageView) itemview.findViewById(R.id.wimg);
             icDelete = (ImageView) itemview.findViewById(R.id.ic_delete);
+            txdays = (TextView) itemview.findViewById(R.id.tx_days);
         }
     }
 

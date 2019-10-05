@@ -1,5 +1,6 @@
 package com.info.manPower.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -10,17 +11,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.info.manPower.AppUtils.BaseUrl;
+import com.info.manPower.Model.Slider_data;
 import com.info.manPower.R;
 import com.smarteist.autoimageslider.SliderViewAdapter;
+
+import java.util.List;
 
 public class Slider_adapter  extends
         SliderViewAdapter<Slider_adapter.SliderAdapterVH> {
 
-    private Context context;
+    private Activity mactivity;
     private int mCount;
+    private List<Slider_data> dataList;
 
-    public Slider_adapter(Context context) {
-        this.context = context;
+    public Slider_adapter(Activity activity, List<Slider_data> dlist) {
+        this.mactivity = activity;
+        this.dataList = dlist;
     }
 
     public void setCount(int count) {
@@ -36,6 +43,7 @@ public class Slider_adapter  extends
     @Override
     public void onBindViewHolder(SliderAdapterVH viewHolder, final int position) {
 
+        Slider_data sob = dataList.get(position);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +53,12 @@ public class Slider_adapter  extends
         });
 
 
-        switch (position) {
+        Glide.with(viewHolder.itemView)
+                .load(BaseUrl.baseimg+""+sob.getImage())
+                .fitCenter()
+                .into(viewHolder.imageViewBackground);
+
+       /* switch (position) {
             case 0:
                 viewHolder.textViewDescription.setText("This is slider item " + position);
                 viewHolder.textViewDescription.setTextSize(16);
@@ -108,7 +121,7 @@ public class Slider_adapter  extends
                         .into(viewHolder.imageViewBackground);
                 break;
 
-         }
+         }*/
     }
 
     @Override
