@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +38,8 @@ public class Login_activity extends AppCompatActivity
     private EditText edMobile, edPass;
     private Button login;
     private String mobile, pass;
-    private TextView register, cnt;
+    private TextView cnt, forgotpass;
+    private LinearLayout register;
     Toolbar toolbar;
     TextView txToolbar;
     ImageView imgToolbar, cart;
@@ -54,8 +56,9 @@ public class Login_activity extends AppCompatActivity
         edMobile = (EditText) findViewById(R.id.ed_name);
         edPass = (EditText) findViewById(R.id.ed_password);
         login = (Button) findViewById(R.id.buttn_login);
-        register = (TextView) findViewById(R.id.tx_register);
-        cart = (ImageView) findViewById(R.id.cart);
+        register = (LinearLayout) findViewById(R.id.tx_register);
+        forgotpass = (TextView) findViewById(R.id.tx_forgotpass);
+        cart = (ImageView) findViewById(R.id.icon_cart);
         cnt = (TextView) findViewById(R.id.cart_count);
         cart.setVisibility(View.GONE);
         cnt.setVisibility(View.GONE);
@@ -89,6 +92,15 @@ public class Login_activity extends AppCompatActivity
 
     private void Click_Listeners()
     {
+        forgotpass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(Login_activity.this,Forget_password_activity.class);
+                startActivity(in);
+                finish();
+            }
+        });
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

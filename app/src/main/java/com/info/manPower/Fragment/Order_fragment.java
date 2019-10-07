@@ -252,9 +252,15 @@ public class Order_fragment extends Fragment {
             }
         }
         if (cnt == dlist.size()) {
-            Log.e("INSTAMOJO CALL___",""+AppPrefrences.getMail(getActivity())+" --- "+phone+" --- "+advance+" --- "+pay_mode+" --- "+nam);
-            //callInstamojoPay(AppPrefrences.getMail(getActivity()),phone,""+10,pay_mode,nam);
-            Call_Order(passArray);
+            Log.e(advance+"INSTAMOJO CALL___",""+AppPrefrences.getMail(getActivity())+" --- "+phone+" --- "+advance+" --- "+pay_mode+" --- "+nam);
+            if (advance==0)
+            {
+                Call_Order(passArray);
+            }
+            else {
+                callInstamojoPay(AppPrefrences.getMail(getActivity()), phone, "" + 10, pay_mode, nam);
+            }
+            //Call_Order(passArray);
             Log.e("JSON ARRAY IS >>> ", "" + passArray);
             Log.e(" SIZE ......... ", " COUNT ........ " + cnt + "...... List Size is ..... " + dlist.size() + " |||||  DATABASE COUNT " + dbcart.getCartCount());
         }
@@ -276,6 +282,10 @@ public class Order_fragment extends Fragment {
                 dialog.dismiss();
                 if (response.body().getResponce()) {
                     Clear_ed();
+                    dbcart.clearCart();
+                    Booking_fragment bookfr = new Booking_fragment();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, bookfr)
+                            .addToBackStack(null).commit();
                     Toast.makeText(activity, "Order Placed...", Toast.LENGTH_SHORT).show();
                 } else if (!response.body().getResponce()) {
                     Toast.makeText(getActivity(), "No Data( false )", Toast.LENGTH_SHORT).show();
@@ -416,7 +426,6 @@ public class Order_fragment extends Fragment {
         landmark.getText().clear();
         address.getText().clear();
     }
-
 
         public boolean validCellPhone(String number) {
             return !TextUtils.isEmpty(number) && (number.length() == 10) && android.util.Patterns.PHONE.matcher(number).matches();

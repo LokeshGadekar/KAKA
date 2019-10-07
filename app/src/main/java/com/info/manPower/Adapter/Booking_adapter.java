@@ -86,6 +86,12 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
                 viewHolder.status.setBackground(mactivity.getResources().getDrawable(R.drawable.chip_complete));
                 viewHolder.Buttnpay.setVisibility(View.VISIBLE);
             }
+            else if (Integer.parseInt(ob.getStatus()) == 3)
+            {
+                viewHolder.status.setText("Cancel");
+                viewHolder.status.setBackground(mactivity.getResources().getDrawable(R.drawable.chip_cancel));
+                viewHolder.Buttnpay.setVisibility(View.VISIBLE);
+            }
             if (viewHolder.Buttnpay.getVisibility() == View.VISIBLE)
             {
                 viewHolder.Buttnpay.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +177,8 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
             public void onSuccess(String response) {
                 //   pay_status = "Success";
                 notifyDataSetChanged();
-                itemview.Buttnpay.setText("PAYED");
+                itemview.status.setVisibility(View.GONE);
+                itemview.Buttnpay.setText("PAID");
                 Toast.makeText(mactivity, "Payment Success", Toast.LENGTH_SHORT).show();
             }
 

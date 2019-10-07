@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="3dp"
-    android:layout_margin="3dp"
+    android:layout_margin="10dp"
     >
 
     <LinearLayout
@@ -89,6 +89,26 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Days :"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black"
+                    />
+                <TextView
+                    android:id="@+id/tx_ddays"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="10pt"
+                    />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -107,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:layout_marginLeft="22pt"
+                    android:layout_marginLeft="26pt"
                     />
             </LinearLayout>
 

@@ -3,6 +3,7 @@ package com.info.manPower.API_retro;
 import com.info.manPower.Model.Booking_Responce;
 import com.info.manPower.Model.Cart_Responce;
 import com.info.manPower.Model.Enquiry_Responce;
+import com.info.manPower.Model.Forgot_Responce;
 import com.info.manPower.Model.Order_Post;
 import com.info.manPower.Model.Profile_responce;
 import com.info.manPower.Model.Registration_Responce;
@@ -40,6 +41,26 @@ public interface API_parameter
     Call<Registration_Responce> LOGIN_CALL(
             @Field("mobile_no") String mobile,
             @Field("password") String pass
+    );
+
+    @FormUrlEncoded
+    @POST("forget_password")
+    Call<Forgot_Responce> FORGOT_CALL(
+            @Field("email")String mail
+    );
+
+    @FormUrlEncoded
+    @POST("check_otp")
+    Call<Forgot_Responce> OTP_VERIFY(
+            @Field("otp")String otp,
+            @Field("user_id")String user_id
+    );
+
+    @FormUrlEncoded
+    @POST("update_password")
+    Call<Forgot_Responce> PASSWORD_RESET(
+            @Field("password")String password,
+            @Field("user_id")String user_id
     );
 
     @GET("get_support")

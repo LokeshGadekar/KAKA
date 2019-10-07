@@ -58,6 +58,22 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden"
             />
+
+        <activity android:name=".View.Forget_password_activity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            />
+        <activity android:name=".View.OTP_activity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            />
+        <activity android:name=".View.Reset_password_activity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            />
     <meta-data android:name="instamojo.orderauth.url"
                    android:value="https://www.lotusenterprises.net/manpower/access_token.php"
             />

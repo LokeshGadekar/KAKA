@@ -87,7 +87,7 @@ public class MainActivity_drawer extends AppCompatActivity {
         fragmentTransaction =fragmentmanager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_layout,fragment);
         fragmentTransaction.commit();
-//        fragmentTransaction.addToBackStack(null);
+       // fragmentTransaction.addToBackStack(Home_fragment.class.getSimpleName());
         setUpNavigationView();
 
         check_Login_Status();
@@ -149,7 +149,24 @@ public class MainActivity_drawer extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Fragment fragmentInFrame = getSupportFragmentManager().findFragmentById(R.id.fragment_layout);
         super.onBackPressed();
+        if(getSupportFragmentManager().getBackStackEntryCount() <1)
+        {
+            //if (fragment == getSupportFragmentManager().findFragmentByTag("Home_fragment"))
+            if (fragmentInFrame instanceof Home_fragment)
+            {
+                finish();
+            }
+            else {
+                //Toast.makeText(activity, "Maiondytf", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity_drawer.this, MainActivity_drawer.class);
+                startActivity(intent);
+                finish();
+            }
+        }else {
+            //Toast.makeText(activity, "fh", Toast.LENGTH_SHORT).show();
+        }
         closeDrawer();
     }
 
@@ -180,10 +197,11 @@ public class MainActivity_drawer extends AppCompatActivity {
                case R.id.nav_home:
                    fragment = new Home_fragment();
                    fragmentmanager = getSupportFragmentManager();
-                   fragmentmanager.popBackStack();
+//                   fragmentmanager.popBackStack();
                    fragmentTransaction = fragmentmanager.beginTransaction();
                    fragmentTransaction.replace(R.id.fragment_layout,fragment);
-                   fragmentTransaction.commit();
+                //   fragmentTransaction.commit();
+                   fragmentTransaction.commitNow();
 
                    closeDrawer();
                    break;
@@ -197,10 +215,11 @@ public class MainActivity_drawer extends AppCompatActivity {
                   else {
                   fragment = new Profile_fragment();
                   fragmentmanager = getSupportFragmentManager();
-                      fragmentmanager.popBackStack();
+                //  fragmentmanager.popBackStack();
                   fragmentTransaction = fragmentmanager.beginTransaction();
                   fragmentTransaction.replace(R.id.fragment_layout,fragment);
                   fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
+                 // fragmentTransaction.commit();
                   fragmentTransaction.commit();
 //                      fragment.getActivity().finish();
                   lockDrawer();
@@ -212,26 +231,25 @@ public class MainActivity_drawer extends AppCompatActivity {
                    { Intent in = new Intent(MainActivity_drawer.this, Login_activity.class);
                        startActivity(in);   }
                    else
-                   { fragment = new Booking_fragment();
+                   {
+                       fragment = new Booking_fragment();
                        fragmentmanager = getSupportFragmentManager();
-                       fragmentmanager.popBackStack();
                        fragmentTransaction = fragmentmanager.beginTransaction();
                        fragmentTransaction.replace(R.id.fragment_layout,fragment);
-//                       fragmentTransaction.addToBackStack(null);
                        fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
                        fragmentTransaction.commit();
-//                       fragment.getActivity().finish();
                        lockDrawer();
                    }                   break;
 
                case R.id.nav_enquiry:
                    fragment = new Enquiry_Fragment();
                    fragmentmanager = getSupportFragmentManager();
-                   fragmentmanager.popBackStack();
+//                   fragmentmanager.popBackStack();
                    fragmentTransaction = fragmentmanager.beginTransaction();
                    fragmentTransaction.replace(R.id.fragment_layout,fragment);
-                   fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
-                   fragmentTransaction.commit();
+                //   fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
+                //   fragmentTransaction.commit();
+                   fragmentTransaction.commitNow();
 //                   fragment.getActivity().finish();
                    closeDrawer();
                    break;
@@ -241,11 +259,12 @@ public class MainActivity_drawer extends AppCompatActivity {
                    bn.putString("Desc","Support");
                    fragment.setArguments(bn);
                    fragmentmanager = getSupportFragmentManager();
-                   fragmentmanager.popBackStack();
+//                   fragmentmanager.popBackStack();
                    fragmentTransaction = fragmentmanager.beginTransaction();
                    fragmentTransaction.replace(R.id.fragment_layout,fragment);
-                   fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
-                   fragmentTransaction.commit();
+                //   fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
+                //   fragmentTransaction.commit();
+                   fragmentTransaction.commitNow();
 //                   fragment.getActivity().finish();
                    lockDrawer();
                    closeDrawer();
@@ -256,11 +275,12 @@ public class MainActivity_drawer extends AppCompatActivity {
                    bn.putString("Desc","About");
                    fragment.setArguments(bn);
                    fragmentmanager = getSupportFragmentManager();
-                   fragmentmanager.popBackStack();
+//                   fragmentmanager.popBackStack();
                    fragmentTransaction = fragmentmanager.beginTransaction();
                    fragmentTransaction.replace(R.id.fragment_layout,fragment);
-                   fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
-                   fragmentTransaction.commit();
+                //   fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
+               //    fragmentTransaction.commit();
+                   fragmentTransaction.commitNow();
 //                   fragment.getActivity().finish();
                    lockDrawer();
                    closeDrawer();
@@ -271,11 +291,12 @@ public class MainActivity_drawer extends AppCompatActivity {
                    bn.putString("Desc","Terms");
                    fragment.setArguments(bn);
                    fragmentmanager = getSupportFragmentManager();
-                   fragmentmanager.popBackStack();
+//                   fragmentmanager.popBackStack();
                    fragmentTransaction = fragmentmanager.beginTransaction();
                    fragmentTransaction.replace(R.id.fragment_layout,fragment);
-                   fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
-                   fragmentTransaction.commit();
+              //     fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
+                ///   fragmentTransaction.commit();
+                   fragmentTransaction.commitNow();
 //                   fragment.getActivity().finish();
                    lockDrawer();
                    closeDrawer();
@@ -384,5 +405,7 @@ public class MainActivity_drawer extends AppCompatActivity {
             super.onPostExecute(s);
         }
     }
+
+
 }
 

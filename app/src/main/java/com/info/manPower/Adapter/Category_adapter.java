@@ -72,7 +72,7 @@ public class Category_adapter extends RecyclerView.Adapter<Category_adapter.View
                     FragmentManager fragmentmanager = activity.getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentmanager.beginTransaction();
                     fragmentTransaction.replace(R.id.fragment_layout,fragment);
-                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
                     fragmentTransaction.commit();
                 }
             });

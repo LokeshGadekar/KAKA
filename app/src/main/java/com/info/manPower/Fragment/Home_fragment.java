@@ -56,7 +56,7 @@ public class Home_fragment extends Fragment
 {
     Toolbar toolbar;
     TextView txToolbar, cart_count;
-    ImageView imgToolbar,cart, location, notifier;
+    ImageView imgToolbar,cart;
 
     private SliderView sliderView;
 

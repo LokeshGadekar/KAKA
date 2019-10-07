@@ -78,7 +78,7 @@ public class Profile_fragment extends Fragment
             public void onClick(View v) {
                 Fragment fm = new Update_Profile_fragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout,fm)
-                        .addToBackStack(null).commit();
+                        .addToBackStack(fm.getClass().getSimpleName()).commit();
             }
         });
         if (Internet_Connectivity.isConnected(getActivity()))

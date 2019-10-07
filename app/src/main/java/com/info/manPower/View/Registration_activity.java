@@ -73,7 +73,7 @@ public class Registration_activity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         txToolbar = (TextView) findViewById(R.id.txToolbar);
         imgToolbar = (ImageView) findViewById(R.id.imgToolbar);
-        cart = (ImageView) findViewById(R.id.cart);
+        cart = (ImageView) findViewById(R.id.icon_cart);
         cnt = (TextView) findViewById(R.id.cart_count);
         cart.setVisibility(View.GONE);
         cnt.setVisibility(View.GONE);

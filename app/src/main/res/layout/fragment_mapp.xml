@@ -9,12 +9,21 @@
     android:paddingBottom="10pt"
     >
 
+    <TextView
+        android:id="@+id/tx_hd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="( Click on your location to get address )"
+        android:layout_centerHorizontal="true"
+        />
+
     <fragment
         android:id="@+id/frag_map"
         android:layout_width="match_parent"
         android:layout_height="200pt"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tx_hd"
         />
 
     <EditText
