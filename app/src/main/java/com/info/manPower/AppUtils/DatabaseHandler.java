@@ -125,6 +125,12 @@ public class DatabaseHandler extends SQLiteOpenHelper
         return list;
     }
 
+    public void update_date(String sCOLUMN, String date, String id)
+    {
+        db = getWritableDatabase();
+        db.execSQL("update " + CART_TABLE + " set " + sCOLUMN + " = '" + date + "' where " + COLUMN_UID + " = " + id);
+    }
+
     public String getTotalAmount() {
         db = getReadableDatabase();
         String qry = "Select SUM(" + COLUMN_QTY + " * " + COLUMN_UNIT_RATE + ") as total_amount  from " + CART_TABLE;
@@ -132,7 +138,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
         cursor.moveToFirst();
         String total = cursor.getString(cursor.getColumnIndex("total_amount"));
         if (total != null) {
-
             return total;
         } else {
             return "0";
@@ -175,7 +180,6 @@ public class DatabaseHandler extends SQLiteOpenHelper
         }
         return 0;
     }
-
 
     public boolean isInCart(String id) {
         db = getReadableDatabase();

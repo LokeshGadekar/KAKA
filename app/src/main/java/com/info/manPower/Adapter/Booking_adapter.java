@@ -1,6 +1,8 @@
 package com.info.manPower.Adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,12 +18,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.info.manPower.API_retro.API_parameter;
 import com.info.manPower.AppUtils.AppPrefrences;
+import com.info.manPower.AppUtils.BaseUrl;
 import com.info.manPower.Fragment.Order_details_fragment;
 import com.info.manPower.Fragment.SubCategory_fragment;
 import com.info.manPower.Model.Booking_data;
+import com.info.manPower.Model.Cancel_order_responce;
 import com.info.manPower.R;
 
 import org.json.JSONException;
@@ -30,12 +39,16 @@ import java.util.List;
 
 import instamojo.library.InstamojoPay;
 import instamojo.library.InstapayListener;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHolder>
 {
     List<Booking_data> dataList;
     Activity mactivity;
     private static int numpay=0;
+    API_parameter ApiService;
 
     private int cpos;
 
@@ -43,6 +56,7 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
     {
         this.mactivity=mactivity;
         this.dataList=dataList;
+        ApiService = BaseUrl.getAPIService();
     }
 
 
@@ -60,11 +74,11 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
 
             viewHolder.txnm.setText(ob.getCatName());
             viewHolder.orderid.setText(ob.getOrderId());
-            viewHolder.pay.setText(ob.getTotalAmt());
+            viewHolder.pay.setText("Rs. "+ob.getTotalAmt());
             viewHolder.dfrom.setText(ob.getDate());
             int adv =(Integer.parseInt(ob.getTotalAmt())*Integer.parseInt(ob.getAdvance()))/100;
-            viewHolder.advance.setText(""+adv);
-            viewHolder.amtpending.setText(""+(Integer.parseInt(ob.getTotalAmt())-adv));
+            viewHolder.advance.setText("Rs. "+adv);
+            viewHolder.amtpending.setText("Rs. "+(Integer.parseInt(ob.getTotalAmt())-adv));
 
             if (Integer.parseInt(ob.getStatus()) == 0)
             {
@@ -103,6 +117,12 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
                 });
 
             }
+
+            if (Integer.parseInt(ob.getOrder_Cancel())==1)
+            {
+                viewHolder.status.setText("Cancel Request Sent");
+                viewHolder.status.setBackground(mactivity.getResources().getDrawable(R.drawable.chip_pending));
+            }
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -119,6 +139,31 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
                         fragmentTransaction.commit();
                     }
                 });
+
+
+            viewHolder.cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(mactivity)
+                            .setTitle("Cancel this Order")
+                            .setMessage("Are you sure to cancel ?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    Confirm_Cancel(ob.getOrderId());
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                }
+            });
+
         }
     }
 
@@ -129,7 +174,7 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-        TextView txnm, orderid , amtpending , dfrom , advance, pay, status;
+        TextView txnm, orderid , amtpending , dfrom , advance, pay, status, cancel;
         Button Buttnpay;
 
         public ViewHolder(View itemview) {
@@ -141,6 +186,7 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
             amtpending = (TextView)itemview.findViewById(R.id.tx_Pending);
             advance = (TextView) itemview.findViewById(R.id.tx_adv);
             pay = (TextView) itemview.findViewById(R.id.tx_pmode);
+            cancel = (TextView) itemview.findViewById(R.id.tx_cancel);
             Buttnpay = (Button) itemview.findViewById(R.id.button_pay);
         }
     }
@@ -192,6 +238,68 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
         };
     }
 
+    private void Confirm_Cancel(final String ordrid)
+    {
+       final AlertDialog dialogBuilder = new AlertDialog.Builder(mactivity).create();
+        LayoutInflater inflater = mactivity.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_dialog_box, null);
+
+        final EditText eddesc = (EditText) dialogView.findViewById(R.id.ed_descrption);
+        Button buttn_cancl = (Button) dialogView.findViewById(R.id.cancl);
+        Button buttn_submit = (Button) dialogView.findViewById(R.id.submit);
+
+        buttn_cancl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+            }
+        });
+        buttn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // DO SOMETHINGS
+                String desc = eddesc.getText().toString().trim();
+                if (desc.matches(""))
+                {
+                    Toast.makeText(mactivity, "Please type some description to cancel...", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    CALL_CANCEL(desc,ordrid);
+                    dialogBuilder.dismiss();
+                }            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+    }
 
 
+    private void CALL_CANCEL(String description, String ordrid)
+    {
+        String user_id = AppPrefrences.getUserid(mactivity);
+        ApiService.CANCEL_ORDER(ordrid,user_id,description).enqueue(new Callback<Cancel_order_responce>() {
+            @Override
+            public void onResponse(Call<Cancel_order_responce> call, Response<Cancel_order_responce> response) {
+                Log.e("CALL_CANCEL RESPONSE.", "" + new Gson().toJson(response.body()));
+                Log.e("CALL_CANCEL RESPONSE.", "-------------------------------------------------");
+                if (response.body().getResponce()) {
+                    Toast.makeText(mactivity, "Order Cancel Request Sent...", Toast.LENGTH_SHORT).show();
+                } else if (!response.body().getResponce()) {
+                    Toast.makeText(mactivity, "No Data( false )", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mactivity, "Error while Connecting...", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Cancel_order_responce> call, Throwable t) {
+                Log.e("error at call", "" + t.getLocalizedMessage());
+                Log.e("error at call", "" + t.getMessage());
+                Log.e("error at call", "" + t.getCause());
+                Log.e("error at call", "" + t.getStackTrace());
+            }
+        });
+
+    }
 }

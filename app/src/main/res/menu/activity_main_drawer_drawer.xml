@@ -6,13 +6,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:title="@string/menu_home" />
+            android:title="@string/menu_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            />
         <item
             android:id="@+id/nav_profile"
-            android:title="Profile" />
+            android:title="Profile"
+            android:icon="@drawable/user_profile1"
+            />
         <item
             android:id="@+id/nav_booking"
-            android:title="My Booking" />
+            android:title="My Booking"
+            android:icon="@drawable/ic_library_books_black_24dp"
+            />
         <item
             android:visible="false"
             android:id="@+id/nav_payhistory"
@@ -20,35 +26,55 @@
 
         <item
             android:id="@+id/nav_enquiry"
-            android:title="Enquiry"/>
+            android:title="Enquiry"
+            android:icon="@drawable/book_app"
+            />
         <item
             android:id="@+id/nav_aboutus"
-            android:title="About Us" />
+            android:title="About Us"
+            android:icon="@drawable/community"
+            />
+
+        <item
+            android:id="@+id/nav_feedback"
+            android:title="Feedback"
+            android:icon="@drawable/feedback"/>
 
         <item
             android:id="@+id/nav_orderphone"
-            android:title="Order On Phone" />
+            android:title="Order On Phone"
+            android:icon="@drawable/ic_call_black_24dp"
+            />
 
         <item
             android:id="@+id/nav_support"
-            android:title="Support" />
+            android:title="Support"
+            android:icon="@drawable/support"
+            />
 
         <item
             android:id="@+id/nav_tnc"
-            android:title="@string/menu_tnc"/>
+            android:title="@string/menu_tnc"
+            android:icon="@drawable/tnc"
+            />
 
         <item
             android:id="@+id/nav_share"
-            android:title="Share" />
+            android:title="Share"
+            android:icon="@drawable/ic_share_black_24dp"
+            />
 
         <item
             android:id="@+id/nav_login"
             android:title="Login"
+            android:icon="@drawable/user_profile1"
             />
 
         <item
             android:id="@+id/nav_logout"
-            android:title="Logout" />
+            android:title="Logout"
+            android:icon="@drawable/logout"
+            />
 
     </group>
 

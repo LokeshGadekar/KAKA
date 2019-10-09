@@ -83,7 +83,6 @@
                     android:layout_width="wrap_content"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="₹500"
                     android:textColor="@color/black"
                     />
                 <ImageView
@@ -149,8 +148,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="7dp"
-                    android:text="12/1/19"
                     android:textColor="@color/black"
+                    android:drawableRight="@drawable/calendar"
                     />
             </LinearLayout>
 
@@ -169,8 +168,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="7dp"
-                    android:text="12/1/19"
                     android:textColor="@color/black"
+                    android:drawableRight="@drawable/calendar"
                     />
             </LinearLayout>
 

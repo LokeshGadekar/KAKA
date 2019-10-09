@@ -32,6 +32,9 @@ public class Booking_data
     @SerializedName("cat_name")
     @Expose
     private String catName;
+    @SerializedName("order_cancel")
+    @Expose
+    private String order_Cancel;
 
     public String getOrderId() {
         return orderId;
@@ -103,4 +106,12 @@ public class Booking_data
 
     public void setCatName(String catName) {
         this.catName = catName;}
+
+    public String getOrder_Cancel() {
+        return order_Cancel;
+    }
+
+    public void setOrder_Cancel(String order_Cancel) {
+        this.order_Cancel = order_Cancel;
+    }
 }

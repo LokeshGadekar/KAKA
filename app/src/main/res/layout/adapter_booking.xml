@@ -26,11 +26,20 @@
                 <TextView
                     android:id="@+id/tx_snm"
                     android:layout_width="match_parent"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="MASON"
                     android:gravity="center"
                     android:textColor="@color/black"
+                    />
+                <TextView
+                    android:id="@+id/tx_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:gravity="end"
+                    android:textColor="@color/red"
+                    android:layout_marginEnd="10dp"
                     />
                 <!--<ImageView
                     android:id="@+id/ic_delete"
@@ -45,49 +54,50 @@
                 android:layout_height="0.50dp"
                 android:background="@color/black"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 >
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/hhead"
+                    android:layout_width="30pt"
                     android:layout_height="wrap_content"
                     android:text="Order Id : "
                     android:textColor="@color/black"
+                    android:layout_centerVertical="true"
                     />
             <TextView
                 android:id="@+id/tx_orderid"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:layout_marginLeft="10pt"
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/hhead"
                 />
 
             <TextView
                 android:id="@+id/tx_status"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_weight="0.06"
-                android:text=""
-                android:gravity="center"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
                 android:textColor="@color/white"
-                android:background="@drawable/chip_fill"
+                android:layout_alignParentEnd="true"
                 />
 
-            </LinearLayout>
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
                 >
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="30pt"
                     android:layout_height="wrap_content"
                     android:text="Date : "
                     android:textColor="@color/black"
@@ -97,8 +107,9 @@
                     android:id="@+id/tx_dfr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="5dp"
                     android:textColor="@color/black"
-                    android:layout_marginLeft="18pt"
+                    android:layout_marginLeft="10dp"
                     />
 
             </LinearLayout>
@@ -109,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="30pt"
                     android:layout_height="wrap_content"
                     android:text="Price :"
                     android:textColor="@color/black"
@@ -118,18 +129,19 @@
                     android:id="@+id/tx_pmode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="7dp"
+                    android:padding="5dp"
                     android:textColor="@color/black"
-                    android:layout_marginLeft="9pt"
+                    android:layout_marginLeft="10dp"
                     />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linear1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="30pt"
                     android:layout_height="wrap_content"
                     android:text="Advance :"
                     android:textColor="@color/black"
@@ -138,42 +150,47 @@
                     android:id="@+id/tx_adv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="7dp"
-                    android:layout_marginLeft="11pt"
+                    android:padding="5dp"
+                    android:layout_marginLeft="10dp"
                     android:textColor="@color/black"
                     />
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="7dp">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/hhead1"
+                    android:layout_width="30pt"
                     android:layout_height="wrap_content"
                     android:text="Pending :"
                     android:textColor="@color/black"
+                    android:layout_centerVertical="true"
                     />
                 <TextView
                     android:id="@+id/tx_Pending"
-                    android:layout_width="60pt"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="7dp"
-                    android:layout_marginLeft="11pt"
+                    android:padding="5dp"
+                    android:layout_marginLeft="10dp"
                     android:textColor="@color/black"
+                    android:layout_toEndOf="@+id/hhead1"
                     />
             <Button
                 android:id="@+id/button_pay"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:text="Pay"
+                android:gravity="center"
                 android:padding="5dp"
                 android:textColor="@color/white"
                 android:background="@drawable/chip_complete"
                 android:visibility="gone"
+                android:layout_alignParentEnd="true"
                 />
-            </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 

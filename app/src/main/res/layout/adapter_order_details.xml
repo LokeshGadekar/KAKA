@@ -51,17 +51,17 @@
                 android:layout_marginTop="10dp"
                 >
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="45pt"
                     android:layout_height="wrap_content"
                     android:text="Date : "
                     android:textColor="@color/black"
-                    android:paddingLeft="10dp"
+                    android:paddingLeft="12dp"
                     />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginLeft="33pt">
+                    android:layout_marginLeft="4dp">
 
                     <TextView
                         android:id="@+id/tx_dtfr"
@@ -73,7 +73,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="to"
+                        android:text=" to"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="5dp"
                         android:textColor="@color/black"
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="45pt"
                     android:layout_height="wrap_content"
                     android:text="Total Days :"
                     android:paddingLeft="10dp"
@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:layout_marginLeft="10pt"
+                    android:layout_marginLeft="4dp"
                     />
             </LinearLayout>
 
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="45pt"
                     android:layout_height="wrap_content"
                     android:text="Price :"
                     android:paddingLeft="10dp"
@@ -127,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:layout_marginLeft="26pt"
+                    android:layout_marginLeft="4dp"
                     />
             </LinearLayout>
 
@@ -136,9 +136,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="45pt"
                     android:layout_height="wrap_content"
-                    android:text="Work Details :"
+                    android:text="Details :"
                     android:textColor="@color/black"
                     android:paddingLeft="10dp"
                     />
@@ -147,7 +147,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="7dp"
-                    android:layout_marginLeft="11pt"
+                    android:layout_marginLeft="4dp"
                     android:textColor="@color/black"
                     />
             </LinearLayout>

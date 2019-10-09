@@ -156,7 +156,7 @@ public class Session_management {
     public void logoutSession() {
         editor.clear();
         editor.commit();
-
+        editor.putBoolean(IS_LOGIN ,false);
         cleardatetime();
 
         Intent logout = new Intent(context, MainActivity_drawer.class);

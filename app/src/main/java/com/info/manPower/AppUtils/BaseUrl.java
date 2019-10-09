@@ -11,11 +11,9 @@ public class BaseUrl
     public static String registration = "https://www.lotusenterprises.net/manpower/Api/registration";
     public static String category = "https://www.lotusenterprises.net/manpower/Api/get_category";
 
-    public static API_parameter getAPIService() {
+    public static API_parameter getAPIService(){
         return Retrofit_client.getClient(base).create(API_parameter.class);
     }
-
-
     public static final String PREFS_NAME = "ManPowerLoginPrefs";
 
     public static final String PREFS_NAME2 = "ManPowerLoginPrefs2";
@@ -45,6 +43,4 @@ public class BaseUrl
     public static final String KEY_TIME = "time";
 
     public static final String KEY_PASSWORD = "password";
-
-
 }

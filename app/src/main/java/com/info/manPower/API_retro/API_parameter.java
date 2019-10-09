@@ -1,6 +1,7 @@
 package com.info.manPower.API_retro;
 
 import com.info.manPower.Model.Booking_Responce;
+import com.info.manPower.Model.Cancel_order_responce;
 import com.info.manPower.Model.Cart_Responce;
 import com.info.manPower.Model.Enquiry_Responce;
 import com.info.manPower.Model.Forgot_Responce;
@@ -133,6 +134,14 @@ public interface API_parameter
       @Field("worker_cat")String catid,
       @Field("cat_name")String ctname,
       @Field("e_d_h")String date
+    );
+
+    @FormUrlEncoded
+    @POST("cancel_order")
+    Call<Cancel_order_responce> CANCEL_ORDER(
+    @Field("order_id")String order_id,
+    @Field("user_id")String user_id,
+    @Field("description")String description
     );
 
 }

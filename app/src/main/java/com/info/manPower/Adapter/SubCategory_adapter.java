@@ -36,10 +36,7 @@ public class SubCategory_adapter extends RecyclerView.Adapter<SubCategory_adapte
     private DatePickerDialog picker;
     Activity mactivity;
 
-    int mem;
-    int pay;
-    String str;
-    private int cpos;
+    int todate,tomonth,toyear;
 
     public SubCategory_adapter(Activity mactivity, List<Subcategory_data> dataList)
     {
@@ -112,9 +109,18 @@ public class SubCategory_adapter extends RecyclerView.Adapter<SubCategory_adapte
                             new DatePickerDialog.OnDateSetListener() {
                                 @Override
                                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                    viewHolder.hireFrom.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                                    sob.setHire_from(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-
+                                    if (dayOfMonth<10)
+                                    {
+                                        viewHolder.hireFrom.setText("0"+dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                        sob.setHire_from("0"+dayOfMonth + "-" + (monthOfYear + 1) + "-" + year); }
+                                    else
+                                    {
+                                        viewHolder.hireFrom.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                        sob.setHire_from(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                    }
+                                    todate = dayOfMonth-1;
+                                    tomonth = monthOfYear;
+                                    toyear = year;
                                 }
                             }, year, month, day);
                     Log.d("mill sec is",""+System.currentTimeMillis());
@@ -138,14 +144,22 @@ public class SubCategory_adapter extends RecyclerView.Adapter<SubCategory_adapte
                             new DatePickerDialog.OnDateSetListener() {
                                 @Override
                                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                    viewHolder.hireTo.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                                    sob.setHire_to(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                                }
+                                    if (dayOfMonth<10)
+                                    {
+                                    viewHolder.hireTo.setText("0"+dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                    sob.setHire_to("0"+dayOfMonth + "-" + (monthOfYear + 1) + "-" + year); }
+                                    else
+                                    {
+                                        viewHolder.hireTo.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                        sob.setHire_to(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                    }                                }
                             }, year, month, day);
-//                    picker.getDatePicker().setMinDate( (System.currentTimeMillis() +1));
-                    picker.getDatePicker().setMinDate( (System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)));
-                //    viewHolder.hireTo.setText(String.valueOf(picker.getDatePicker().getMinDate()));
-//
+
+                    Calendar c = Calendar.getInstance();
+                    c.set(toyear,tomonth,todate);
+                    picker.getDatePicker().setMinDate(c.getTimeInMillis() + TimeUnit.DAYS.toMillis(1));
+                    //picker.getDatePicker().setMinDate( (System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)));
+
                     picker.show();
                 }
             });

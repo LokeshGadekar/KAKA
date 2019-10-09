@@ -47,7 +47,7 @@ public class Order_details_adapter extends RecyclerView.Adapter<Order_details_ad
             Suborder_data ob = dataList.get(i);
 
             viewHolder.txnm.setText(ob.getSubcatName());
-            viewHolder.amount.setText(ob.getAmount());
+            viewHolder.amount.setText("Rs. "+ob.getAmount());
             viewHolder.txfrom.setText(ob.getDateFrom());
             viewHolder.txto.setText(ob.getDateTo());
             viewHolder.description.setText(ob.getDescription());

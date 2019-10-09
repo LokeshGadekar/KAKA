@@ -2,13 +2,16 @@ package com.info.manPower.Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,11 +22,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.info.manPower.AppUtils.BaseUrl;
 import com.info.manPower.AppUtils.DatabaseHandler;
+import com.info.manPower.Model.Cart_data;
 import com.info.manPower.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,12 +38,13 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ViewHolder>
 {
     //List<Cart_data> dataList;
     ArrayList<HashMap<String, String>> dataList;
+    private DatePickerDialog picker;
     List<CardView>cardViewList = new ArrayList<>();
     private DatabaseHandler db;
     long days=0;
 
     Activity mactivity;
-
+    int todate,tomonth,toyear;
     private int cpos;
 
     public Cart_adapter(Activity mactivity, ArrayList<HashMap<String,String>> dataList)
@@ -59,8 +65,9 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ViewHolder>
     public void onBindViewHolder(final Cart_adapter.ViewHolder viewHolder, final int i) {
         if (viewHolder!=null)
         {
-            //final Cart_data cob = dataList.get(i);
+            //final Cart_data ob = dataList.get(i);
             final HashMap<String, String> cob = dataList.get(i);
+
 
             //viewHolder.txWorkernm.setText(cob.getSubcatName());
             //viewHolder.txTime.setText(cob.getTimeFrom()+"  to  "+cob.getTimeTo());
@@ -91,7 +98,7 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ViewHolder>
             viewHolder.txFrom.setText(""+cob.get("date_from"));
             viewHolder.txTo.setText(""+cob.get("date_to"));
             viewHolder.txhnum.setText(""+cob.get("num_helpers"));
-            viewHolder.txRate.setText(""+(rate*days));
+            viewHolder.txRate.setText("Rs."+(rate*days));
             viewHolder.txdays.setText(""+days);
 
             Glide.with(mactivity).load(BaseUrl.baseimg+""+cob.get("image")).into(viewHolder.img);
@@ -102,7 +109,7 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ViewHolder>
                     int nm = Integer.parseInt(viewHolder.txhnum.getText().toString()) + 1 ;  // number of helpers
                     int n = (int)days*(nm * onrate); // rate
                     if (nm>=0){
-                    viewHolder.txRate.setText(""+n);
+                    viewHolder.txRate.setText("Rs."+n);
                     viewHolder.txhnum.setText(""+nm);
                     db.setCart(cob, nm);
                     updateintent();
@@ -117,7 +124,7 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ViewHolder>
                     int nm = Integer.parseInt(viewHolder.txhnum.getText().toString()) - 1 ;
                     int n =(int)days * ( nm * onrate);
                     if (nm>0){
-                    viewHolder.txRate.setText(""+n);
+                    viewHolder.txRate.setText("Rs."+n);
                     viewHolder.txhnum.setText(""+nm);
                     db.setCart(cob, nm);
                     Log.e("Number of Helpers : "," "+nm+"----------CULUMN_UID  "+cob.get("uid")+ " CART ADAPTER");
@@ -131,7 +138,7 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ViewHolder>
                                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        db.removeItemFromCart(cob.get("subcat_id"));
+                                        db.removeItemFromCart(cob.get("uid"));
                                         updateintent();
                                         dataList.remove(i);
                                         notifyDataSetChanged();
@@ -157,6 +164,97 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ViewHolder>
                     dataList.remove(i);
                     notifyDataSetChanged();
                     Toast.makeText(mactivity, "Deleted from cart", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            viewHolder.txFrom.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Calendar cldr = Calendar.getInstance();
+                    int day = cldr.get(Calendar.DAY_OF_MONTH);
+                    int month = cldr.get(Calendar.MONTH);
+                    int year = cldr.get(Calendar.YEAR);
+                    // date picker dialog
+                    picker = new DatePickerDialog(mactivity,
+                            new DatePickerDialog.OnDateSetListener() {
+                                @Override
+                                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                    if (dayOfMonth<10)
+                                    {
+                                        viewHolder.txFrom.setText("0"+dayOfMonth + "-" + (monthOfYear + 1) + "-" + year); }
+                                    else
+                                    {
+                                        viewHolder.txFrom.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);     }
+                                    todate = dayOfMonth-1;
+                                    tomonth = monthOfYear;
+                                    toyear = year;
+                                    db.update_date("date_from",viewHolder.txFrom.getText().toString(), cob.get("uid"));
+                                    cob.put("date_from",viewHolder.txFrom.getText().toString());
+                                    updateintent();
+                                    notifyItemChanged(i);
+                                }
+                            }, year, month, day);
+                    Log.d("mill sec is",""+System.currentTimeMillis());
+                    SimpleDateFormat format1=new SimpleDateFormat("dd-MM-yyyy");
+                    try {
+                    Date dt1=format1.parse(cob.get("date_from"));
+                    Calendar c = Calendar.getInstance();
+                        String ddate          = (String) DateFormat.format("dd",   dt1); // 20
+                        String monthNumber  = (String) DateFormat.format("MM",   dt1); // 06
+                        String ddyear         = (String) DateFormat.format("yyyy", dt1); // 2013
+                    c.set(Integer.parseInt(ddyear),Integer.parseInt(monthNumber)-1,(Integer.parseInt(ddate)-1));
+                        picker.getDatePicker().setMinDate(c.getTimeInMillis() + TimeUnit.DAYS.toMillis(1));
+                        //picker.getDatePicker().setMinDate( (System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)));
+                    }
+
+                    catch (ParseException pex)
+                    {              pex.printStackTrace();   }
+
+
+                    // picker.getDatePicker().setMinDate( (System.currentTimeMillis() -10000000) );
+//                    picker.getDatePicker().getCalendarView().setMinDate();
+                    picker.show();
+                }
+            });
+
+            viewHolder.txTo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Calendar cldr = Calendar.getInstance();
+                    int day = cldr.get(Calendar.DAY_OF_MONTH);
+                    int month = cldr.get(Calendar.MONTH);
+                    int year = cldr.get(Calendar.YEAR);
+                    // date picker dialog
+                    picker = new DatePickerDialog(mactivity,
+                            new DatePickerDialog.OnDateSetListener() {
+                                @Override
+                                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                    if (dayOfMonth<10)
+                                    {  viewHolder.txTo.setText("0"+dayOfMonth + "-" + (monthOfYear + 1) + "-" + year); }
+                                    else
+                                    {  viewHolder.txTo.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);     }
+                                    db.update_date("date_to", viewHolder.txTo.getText().toString(), cob.get("uid"));
+                                    cob.put("date_to",viewHolder.txTo.getText().toString());
+                                    updateintent();
+                                    notifyItemChanged(i);
+                                }
+                            }, year, month, day);
+
+                    SimpleDateFormat format1=new SimpleDateFormat("dd-MM-yyyy");
+                    try {
+                        Date dt1=format1.parse(cob.get("date_from"));
+                        Calendar c = Calendar.getInstance();
+                        String ddate          = (String) DateFormat.format("dd",   dt1); // 20
+                        String monthNumber  = (String) DateFormat.format("MM",   dt1); // 06
+                        String ddyear         = (String) DateFormat.format("yyyy", dt1); // 2013
+                        c.set(Integer.parseInt(ddyear),Integer.parseInt(monthNumber)-1,(Integer.parseInt(ddate)-1));
+                        picker.getDatePicker().setMinDate(c.getTimeInMillis() + TimeUnit.DAYS.toMillis(1));
+                        //picker.getDatePicker().setMinDate( (System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)));
+                    }
+
+                    catch (ParseException pex)
+                    {              pex.printStackTrace();   }
+                    picker.show();
                 }
             });
         }

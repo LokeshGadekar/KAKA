@@ -37,7 +37,6 @@
                 android:id="@+id/tx_mainworker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="One General Worker"
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textColor="@color/app_theme"
