@@ -6,6 +6,7 @@ import com.info.manPower.Model.Cart_Responce;
 import com.info.manPower.Model.Enquiry_Responce;
 import com.info.manPower.Model.Forgot_Responce;
 import com.info.manPower.Model.Order_Post;
+import com.info.manPower.Model.Pay_responce;
 import com.info.manPower.Model.Profile_responce;
 import com.info.manPower.Model.Registration_Responce;
 import com.info.manPower.Model.Order_Responce;
@@ -14,6 +15,7 @@ import com.info.manPower.Model.Subcategory_Responce;
 import com.info.manPower.Model.Suborder_Responce;
 import com.info.manPower.Model.Support_Responce;
 import com.info.manPower.Model.UpdateProfile_Responce;
+import com.info.manPower.Model.single_responce;
 
 import org.json.JSONArray;
 
@@ -142,6 +144,25 @@ public interface API_parameter
     @Field("order_id")String order_id,
     @Field("user_id")String user_id,
     @Field("description")String description
+    );
+
+    @FormUrlEncoded
+    @POST("feedback")
+    Call<single_responce> FEEDBACK_CALL(
+      @Field("name")String name,
+      @Field("number")String number,
+      @Field("mail")String mail,
+      @Field("description")String description
+    );
+
+    @FormUrlEncoded
+    @POST("payment_update")
+    Call<Pay_responce> PAY_TRACK(
+    @Field("user_id")String user_id,
+    @Field("order_id")String order_id,
+    @Field("payment_advance")int pay_adv,
+    @Field("payment_complete")int pay_com,
+    @Field("payment_mode")String payment_mode
     );
 
 }

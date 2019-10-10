@@ -347,8 +347,6 @@ public class MainActivity_drawer extends AppCompatActivity {
                    closeDrawer();
                    break;
 
-
-
                case R.id.nav_login:
                    Intent in = new Intent(MainActivity_drawer.this, Login_activity.class);
                    startActivity(in);

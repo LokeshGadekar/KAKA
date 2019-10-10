@@ -190,6 +190,19 @@
                 android:visibility="gone"
                 android:layout_alignParentEnd="true"
                 />
+                <Button
+                    android:id="@+id/button_paid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Paid"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/chip_complete"
+                    android:visibility="gone"
+                    android:layout_alignParentEnd="true"
+                    />
+
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

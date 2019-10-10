@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.common.api.Api;
 import com.google.gson.Gson;
 import com.info.manPower.API_retro.API_parameter;
 import com.info.manPower.AppUtils.AppPrefrences;
@@ -30,6 +31,7 @@ import com.info.manPower.Fragment.Order_details_fragment;
 import com.info.manPower.Fragment.SubCategory_fragment;
 import com.info.manPower.Model.Booking_data;
 import com.info.manPower.Model.Cancel_order_responce;
+import com.info.manPower.Model.Pay_responce;
 import com.info.manPower.R;
 
 import org.json.JSONException;
@@ -86,14 +88,12 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
                 viewHolder.status.setBackground(mactivity.getResources().getDrawable(R.drawable.chip_pending));
                 viewHolder.Buttnpay.setVisibility(View.GONE);
             }
-
             else if (Integer.parseInt(ob.getStatus()) == 1)
             {
                 viewHolder.status.setText("Confirm");
                 viewHolder.status.setBackground(mactivity.getResources().getDrawable(R.drawable.chip_fill));
                 viewHolder.Buttnpay.setVisibility(View.GONE);
             }
-
             else if (Integer.parseInt(ob.getStatus()) == 2)
             {
                 viewHolder.status.setText("Complete");
@@ -104,20 +104,33 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
             {
                 viewHolder.status.setText("Cancel");
                 viewHolder.status.setBackground(mactivity.getResources().getDrawable(R.drawable.chip_cancel));
-                viewHolder.Buttnpay.setVisibility(View.VISIBLE);
+                viewHolder.Buttnpay.setVisibility(View.GONE);
             }
+
+            if (Integer.parseInt(ob.getPayment_complete()) == 0)
+            {
+                //viewHolder.Buttnpay.setVisibility(View.VISIBLE);
+                viewHolder.ButtnPaid.setVisibility(View.GONE);
+            }
+
+            else if (Integer.parseInt(ob.getPayment_complete()) == 1)
+            {
+                viewHolder.Buttnpay.setVisibility(View.GONE);
+                viewHolder.ButtnPaid.setVisibility(View.VISIBLE);
+            }
+
+
+
             if (viewHolder.Buttnpay.getVisibility() == View.VISIBLE)
             {
                 viewHolder.Buttnpay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        callInstamojoPay(AppPrefrences.getMail(mactivity), AppPrefrences.getMobile(mactivity),""+10 ,"online payment", AppPrefrences.getName(mactivity),viewHolder);
+                        callInstamojoPay(AppPrefrences.getMail(mactivity), AppPrefrences.getMobile(mactivity),""+10 ,"online payment", AppPrefrences.getName(mactivity),viewHolder,i);
                         numpay = i;
                     }
                 });
-
             }
-
             if (Integer.parseInt(ob.getOrder_Cancel())==1)
             {
                 viewHolder.status.setText("Cancel Request Sent");
@@ -139,8 +152,6 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
                         fragmentTransaction.commit();
                     }
                 });
-
-
             viewHolder.cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -163,7 +174,6 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
                             .show();
                 }
             });
-
         }
     }
 
@@ -175,7 +185,7 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder
     {
         TextView txnm, orderid , amtpending , dfrom , advance, pay, status, cancel;
-        Button Buttnpay;
+        Button Buttnpay, ButtnPaid;
 
         public ViewHolder(View itemview) {
             super(itemview);
@@ -188,11 +198,12 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
             pay = (TextView) itemview.findViewById(R.id.tx_pmode);
             cancel = (TextView) itemview.findViewById(R.id.tx_cancel);
             Buttnpay = (Button) itemview.findViewById(R.id.button_pay);
+            ButtnPaid= (Button) itemview.findViewById(R.id.button_paid);
         }
     }
 
 
-    private void callInstamojoPay(String email, String phone, String amount, String purpose, String buyername, ViewHolder viewh) {
+    private void callInstamojoPay(String email, String phone, String amount, String purpose, String buyername, ViewHolder viewh, int i) {
         final Activity activity = mactivity;
 //      String  Payment_method = radio_online_pay.getText().toString();
 
@@ -211,20 +222,24 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        initListener(viewh);
+        initListener(viewh,i);
         instamojoPay.start(activity, pay, listener);
     }
 
     InstapayListener listener;
 
-    private void initListener(final ViewHolder itemview) {
+    private void initListener(final ViewHolder itemview, final int a) {
         listener = new InstapayListener() {
             @Override
             public void onSuccess(String response) {
                 //   pay_status = "Success";
                 notifyDataSetChanged();
                 itemview.status.setVisibility(View.GONE);
-                itemview.Buttnpay.setText("PAID");
+                dataList.get(a).setPayment_complete("1");
+                notifyItemChanged(a);
+                itemview.ButtnPaid.setVisibility(View.VISIBLE);
+
+                Call_PAY_API( a );
                 Toast.makeText(mactivity, "Payment Success", Toast.LENGTH_SHORT).show();
             }
 
@@ -237,6 +252,50 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
             /// eof INSTA_MOJO PAYMENT /////////////
         };
     }
+
+    // ----------------
+
+    private void Call_PAY_API(int adv)
+    {
+        String order_id = dataList.get(adv).getOrderId();
+        int advance;
+        int payment = 1;
+        if ( Integer.parseInt(dataList.get(adv).getAdvance())>0)
+        {
+             advance = 1;
+        }
+        else
+        {
+            advance = 0;
+        }
+        ApiService.PAY_TRACK(AppPrefrences.getUserid(mactivity), order_id,advance,payment,"online").enqueue(new Callback<Pay_responce>() {
+        @Override
+        public void onResponse(Call<Pay_responce> call, Response<Pay_responce> response) {
+            Log.e("PAY_TRACK RESPONSE.", "" + new Gson().toJson(response.body()));
+            Log.e("PAY_TRACK RESPONSE.", "-------------------------------------------------");
+            if (response.body().getResponce()) {
+                Toast.makeText(mactivity, "Pay History Submitted...", Toast.LENGTH_SHORT).show();
+            }
+            else if (!response.body().getResponce())
+            {
+                Toast.makeText(mactivity, "No Data( false )", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(mactivity, "Error while Connecting...", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<Pay_responce> call, Throwable t) {
+
+        }
+    });
+    }
+
+
+    // ----------------
+
 
     private void Confirm_Cancel(final String ordrid)
     {

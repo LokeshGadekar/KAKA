@@ -35,6 +35,17 @@ public class Booking_data
     @SerializedName("order_cancel")
     @Expose
     private String order_Cancel;
+    @SerializedName("payment_complete")
+    @Expose
+    private String payment_complete;
+
+    public String getPayment_complete() {
+        return payment_complete;
+    }
+
+    public void setPayment_complete(String payment_complete) {
+        this.payment_complete = payment_complete;
+    }
 
     public String getOrderId() {
         return orderId;

@@ -10,6 +10,137 @@
         android:id="@+id/ttbar"
         layout="@layout/layout_toolbar"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/ttbar"
+        android:layout_margin="14dp"
+        >
+
+        <EditText
+            android:id="@+id/ed_nname"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="10pt"
+            android:background="@drawable/edit_text"
+            android:hint="Name"
+            android:backgroundTint="@color/light_grey"
+            android:singleLine="true"
+            android:inputType="text"
+            style="@style/ed_txt"
+            android:padding="2dp"
+            android:paddingLeft="5dp"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/ic_account_circle_black_24dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:background="@drawable/edit_text"
+            android:gravity="center"
+            android:padding="2dp"
+            android:layout_marginTop="10pt"
+            >
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/mail"
+                android:layout_gravity="center_vertical"
+                android:paddingStart="2dp"
+                android:paddingLeft="2dp"
+                />
+            <EditText
+                android:id="@+id/ed_emaill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:backgroundTint="@color/light_grey"
+                android:textColorHint="@color/light_grey"
+                style="@style/ed_txt"
+                android:background="@android:color/transparent"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:singleLine="true"
+                android:inputType="textEmailAddress"
+                android:autoLink="none"
+                android:autoText="false"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:background="@drawable/edit_text"
+            android:gravity="center"
+            android:padding="2dp"
+            android:layout_marginTop="10pt"
+            >
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/phone"
+                android:layout_gravity="center_vertical"
+                android:paddingStart="2dp"
+                android:paddingLeft="2dp"
+                />
+
+            <EditText
+                android:id="@+id/ed_phonenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone No."
+                android:backgroundTint="@color/light_grey"
+                android:textColorHint="@color/light_grey"
+                style="@style/ed_txt"
+                android:background="@android:color/transparent"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:singleLine="true"
+                android:inputType="number"
+                />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/ed_addr"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="10pt"
+            android:background="@drawable/edit_text"
+            android:hint="Description"
+            android:backgroundTint="@color/light_grey"
+            android:singleLine="true"
+            android:inputType="textMultiLine"
+            style="@style/ed_txt"
+            android:padding="2dp"
+            android:paddingLeft="5dp"
+            android:drawablePadding="15dp"
+            android:drawableLeft="@drawable/feedback"
+            />
+
+        <Button
+            android:id="@+id/b_submit"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:textColor="@color/white"
+            android:text="Submit"
+            android:layout_marginTop="10pt"
+            android:textSize="8pt"
+            android:gravity="center"
+            android:layout_marginStart="1dp"
+            android:layout_marginLeft="1dp"
+            android:background="@drawable/button"
+            style="@style/tx_vu"
+            android:layout_marginBottom="30pt"
+            />
+
+    </LinearLayout>
+
 
 
 </RelativeLayout>

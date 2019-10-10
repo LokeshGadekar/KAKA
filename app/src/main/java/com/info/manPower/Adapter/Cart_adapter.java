@@ -195,24 +195,7 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ViewHolder>
                                 }
                             }, year, month, day);
                     Log.d("mill sec is",""+System.currentTimeMillis());
-                    SimpleDateFormat format1=new SimpleDateFormat("dd-MM-yyyy");
-                    try {
-                    Date dt1=format1.parse(cob.get("date_from"));
-                    Calendar c = Calendar.getInstance();
-                        String ddate          = (String) DateFormat.format("dd",   dt1); // 20
-                        String monthNumber  = (String) DateFormat.format("MM",   dt1); // 06
-                        String ddyear         = (String) DateFormat.format("yyyy", dt1); // 2013
-                    c.set(Integer.parseInt(ddyear),Integer.parseInt(monthNumber)-1,(Integer.parseInt(ddate)-1));
-                        picker.getDatePicker().setMinDate(c.getTimeInMillis() + TimeUnit.DAYS.toMillis(1));
-                        //picker.getDatePicker().setMinDate( (System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)));
-                    }
-
-                    catch (ParseException pex)
-                    {              pex.printStackTrace();   }
-
-
-                    // picker.getDatePicker().setMinDate( (System.currentTimeMillis() -10000000) );
-//                    picker.getDatePicker().getCalendarView().setMinDate();
+                        picker.getDatePicker().setMinDate( (System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)));
                     picker.show();
                 }
             });
