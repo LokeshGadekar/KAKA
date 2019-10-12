@@ -32,15 +32,6 @@
                     android:gravity="center"
                     android:textColor="@color/black"
                     />
-                <TextView
-                    android:id="@+id/tx_cancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cancel"
-                    android:gravity="end"
-                    android:textColor="@color/red"
-                    android:layout_marginEnd="10dp"
-                    />
                 <!--<ImageView
                     android:id="@+id/ic_delete"
                     android:layout_width="wrap_content"
@@ -59,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
+                android:padding="5dp"
                 >
                 <TextView
                     android:id="@+id/hhead"
@@ -78,47 +70,98 @@
                 android:layout_toEndOf="@+id/hhead"
                 />
 
-            <TextView
-                android:id="@+id/tx_status"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:gravity="center"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/white"
-                android:layout_alignParentEnd="true"
-                />
+                <Button
+                    android:id="@+id/tx_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Cancel"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:background="@drawable/chip_pending"
+                    android:visibility="gone"
+                    android:layout_alignParentEnd="true"
+                    />
+
+                <Button
+                    android:id="@+id/button_workprogress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Work in Progress"
+                    android:gravity="center"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:background="@drawable/chip_pending"
+                    android:visibility="gone"
+                    android:layout_alignParentEnd="true"
+                    />
 
             </RelativeLayout>
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:padding="5dp"
                 >
                 <TextView
+                    android:id="@+id/hh1"
                     android:layout_width="30pt"
                     android:layout_height="wrap_content"
                     android:text="Date : "
                     android:textColor="@color/black"
+                    android:layout_centerVertical="true"
                     />
 
                 <TextView
                     android:id="@+id/tx_dfr"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:textColor="@color/black"
                     android:layout_marginLeft="10dp"
+                    android:layout_toEndOf="@+id/hh1"
+                    android:layout_centerVertical="true"
                     />
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/tx_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:gravity="center"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/white"
+                    android:layout_alignParentEnd="true"
+                    />
+
+                <Button
+                    android:id="@+id/button_complete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Complete"
+                    android:gravity="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:paddingRight="12dp"
+                    android:paddingLeft="12dp"
+                    android:background="@drawable/chip_complete"
+                    android:visibility="gone"
+                    android:layout_alignParentEnd="true"
+                    />
+
+
+            </RelativeLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
                 <TextView
                     android:layout_width="30pt"
                     android:layout_height="wrap_content"
@@ -127,40 +170,63 @@
                     />
                 <TextView
                     android:id="@+id/tx_pmode"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:textColor="@color/black"
                     android:layout_marginLeft="10dp"
                     />
+
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/linear1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
                 <TextView
+                    android:id="@+id/hh3"
                     android:layout_width="30pt"
                     android:layout_height="wrap_content"
                     android:text="Advance :"
                     android:textColor="@color/black"
+                    android:layout_centerVertical="true"
                     />
                 <TextView
                     android:id="@+id/tx_adv"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
                     android:textColor="@color/black"
+                    android:layout_toEndOf="@+id/hh3"
                     />
-            </LinearLayout>
+                <Button
+                    android:id="@+id/button_payonline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="Pay Online"
+                    android:gravity="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:paddingRight="12dp"
+                    android:paddingLeft="12dp"
+                    android:background="@drawable/chip_pending"
+                    android:visibility="gone"
+                    android:layout_alignParentEnd="true"
+                    />
+
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="7dp">
+                android:layout_marginBottom="7dp"
+                android:padding="5dp">
                 <TextView
                     android:id="@+id/hhead1"
                     android:layout_width="30pt"
@@ -179,16 +245,19 @@
                     android:layout_toEndOf="@+id/hhead1"
                     />
             <Button
-                android:id="@+id/button_pay"
+                android:id="@+id/button_paycash"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="Pay"
+                android:text="Pay in Cash"
                 android:gravity="center"
-                android:padding="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:background="@drawable/chip_complete"
+                android:background="@drawable/chip_pending"
                 android:visibility="gone"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 />
                 <Button
                     android:id="@+id/button_paid"
@@ -197,6 +266,7 @@
                     android:text="Paid"
                     android:gravity="center"
                     android:padding="5dp"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:background="@drawable/chip_complete"
                     android:visibility="gone"

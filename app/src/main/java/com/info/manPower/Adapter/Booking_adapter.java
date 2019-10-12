@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,9 @@ import com.info.manPower.Fragment.SubCategory_fragment;
 import com.info.manPower.Model.Booking_data;
 import com.info.manPower.Model.Cancel_order_responce;
 import com.info.manPower.Model.Pay_responce;
+import com.info.manPower.Model.single_responce;
 import com.info.manPower.R;
+import com.instamojo.android.models.Order;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -82,30 +85,45 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
             viewHolder.advance.setText("Rs. "+adv);
             viewHolder.amtpending.setText("Rs. "+(Integer.parseInt(ob.getTotalAmt())-adv));
 
+
+            ///////////////////
             if (Integer.parseInt(ob.getStatus()) == 0)
             {
                 viewHolder.status.setText("Pending");
+                viewHolder.ButtnWprogress.setVisibility(View.GONE);
                 viewHolder.status.setBackground(mactivity.getResources().getDrawable(R.drawable.chip_pending));
-                viewHolder.Buttnpay.setVisibility(View.GONE);
             }
             else if (Integer.parseInt(ob.getStatus()) == 1)
             {
                 viewHolder.status.setText("Confirm");
+                viewHolder.ButtnWprogress.setVisibility(View.GONE);
                 viewHolder.status.setBackground(mactivity.getResources().getDrawable(R.drawable.chip_fill));
-                viewHolder.Buttnpay.setVisibility(View.GONE);
             }
             else if (Integer.parseInt(ob.getStatus()) == 2)
             {
-                viewHolder.status.setText("Complete");
-                viewHolder.status.setBackground(mactivity.getResources().getDrawable(R.drawable.chip_complete));
-                viewHolder.Buttnpay.setVisibility(View.VISIBLE);
+                viewHolder.ButtnWprogress.setVisibility(View.GONE);
+                viewHolder.ButtnComplete.setVisibility(View.GONE);
+                viewHolder.ButtnpayCash.setVisibility(View.VISIBLE);
+                viewHolder.ButtnpayOnline.setVisibility(View.VISIBLE);
             }
             else if (Integer.parseInt(ob.getStatus()) == 3)
             {
                 viewHolder.status.setText("Cancel");
-                viewHolder.status.setBackground(mactivity.getResources().getDrawable(R.drawable.chip_cancel));
-                viewHolder.Buttnpay.setVisibility(View.GONE);
+                viewHolder.ButtnWprogress.setVisibility(View.GONE);
+                viewHolder.status.setBackground(mactivity.getResources().getDrawable(R.drawable.chip_pending));
             }
+            else if (Integer.parseInt(ob.getStatus()) == 4)
+            {
+                viewHolder.ButtnWprogress.setVisibility(View.VISIBLE);
+                viewHolder.ButtnComplete.setVisibility(View.VISIBLE);
+            }
+
+            if (Integer.parseInt(ob.getCancel_time())==0)
+            {   viewHolder.ButtnCancel.setVisibility(View.VISIBLE);   }
+            else if (Integer.parseInt(ob.getCancel_time())==1)
+            {   viewHolder.ButtnCancel.setVisibility(View.GONE);   }
+          ////////////
+
 
             if (Integer.parseInt(ob.getPayment_complete()) == 0)
             {
@@ -115,15 +133,16 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
 
             else if (Integer.parseInt(ob.getPayment_complete()) == 1)
             {
-                viewHolder.Buttnpay.setVisibility(View.GONE);
+                viewHolder.ButtnpayOnline.setVisibility(View.GONE);
+                viewHolder.ButtnpayCash.setVisibility(View.GONE);
+                viewHolder.ButtnWprogress.setVisibility(View.GONE);
+                viewHolder.ButtnComplete.setVisibility(View.GONE);
                 viewHolder.ButtnPaid.setVisibility(View.VISIBLE);
             }
 
-
-
-            if (viewHolder.Buttnpay.getVisibility() == View.VISIBLE)
+            if (viewHolder.ButtnpayOnline.getVisibility() == View.VISIBLE)
             {
-                viewHolder.Buttnpay.setOnClickListener(new View.OnClickListener() {
+                viewHolder.ButtnpayOnline.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         callInstamojoPay(AppPrefrences.getMail(mactivity), AppPrefrences.getMobile(mactivity),""+10 ,"online payment", AppPrefrences.getName(mactivity),viewHolder,i);
@@ -152,17 +171,62 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
                         fragmentTransaction.commit();
                     }
                 });
-            viewHolder.cancel.setOnClickListener(new View.OnClickListener() {
+            viewHolder.ButtnCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     new AlertDialog.Builder(mactivity)
-                            .setTitle("Cancel this Order")
+                            .setTitle("Cancel this Order ?")
                             .setMessage("Are you sure to cancel ?")
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
                                     Confirm_Cancel(ob.getOrderId());
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                }
+            });
+            viewHolder.ButtnComplete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(mactivity)
+                            .setTitle("Complete this Order")
+                            .setMessage("Are you sure for work Completion ?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    Complete_Order(ob.getOrderId(),i);
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                }
+            });
+            viewHolder.ButtnpayCash.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(mactivity)
+                            .setTitle("Pay for this Order?")
+                            .setMessage("Are you sure to pay in Cash ?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    //Complete_Order(ob.getOrderId(),i);
+                                    Confirm_PayCash(ob.getOrderId());
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -184,8 +248,8 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-        TextView txnm, orderid , amtpending , dfrom , advance, pay, status, cancel;
-        Button Buttnpay, ButtnPaid;
+        TextView txnm, orderid , amtpending , dfrom , advance, pay, status;
+        Button ButtnpayCash, ButtnpayOnline, ButtnPaid, ButtnWprogress, ButtnCancel, ButtnComplete;
 
         public ViewHolder(View itemview) {
             super(itemview);
@@ -196,8 +260,11 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
             amtpending = (TextView)itemview.findViewById(R.id.tx_Pending);
             advance = (TextView) itemview.findViewById(R.id.tx_adv);
             pay = (TextView) itemview.findViewById(R.id.tx_pmode);
-            cancel = (TextView) itemview.findViewById(R.id.tx_cancel);
-            Buttnpay = (Button) itemview.findViewById(R.id.button_pay);
+            ButtnCancel = (Button) itemview.findViewById(R.id.tx_cancel);
+            ButtnWprogress = (Button) itemview.findViewById(R.id.button_workprogress);
+            ButtnpayCash = (Button) itemview.findViewById(R.id.button_paycash);
+            ButtnpayOnline = (Button) itemview.findViewById(R.id.button_payonline);
+            ButtnComplete = (Button) itemview.findViewById(R.id.button_complete);
             ButtnPaid= (Button) itemview.findViewById(R.id.button_paid);
         }
     }
@@ -247,8 +314,6 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
             public void onFailure(int i, String s) {
                 Log.e("Error "," Pay "+s+"________________"+i);
             }
-
-
             /// eof INSTA_MOJO PAYMENT /////////////
         };
     }
@@ -288,13 +353,44 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
 
         @Override
         public void onFailure(Call<Pay_responce> call, Throwable t) {
-
+            Log.e("error at paycall", "" + t.getLocalizedMessage());
+            Log.e("error at paycall", "" + t.getMessage());
+            Log.e("error at paycall", "" + t.getCause());
         }
     });
     }
 
 
     // ----------------
+
+    private void Complete_Order(String Order_id,int a)
+    {
+        final int listpos = a;
+        ApiService.WORK_COMPLETE(Order_id,AppPrefrences.getUserid(mactivity)).enqueue(new Callback<single_responce>() {
+            @Override
+            public void onResponse(Call<single_responce> call, Response<single_responce> response) {
+                Log.e("WORK COMPLETE RESPONSE.", "" + new Gson().toJson(response.body()));
+                Log.e("WORK COMPLETE RESPONSE.", "-------------------------------------------------");
+                if (response.body().getResponce()) {
+                    Toast.makeText(mactivity, "Order Complete Request Sent...", Toast.LENGTH_SHORT).show();
+                    dataList.get(listpos).setStatus("2");
+                    notifyItemChanged(listpos);
+                } else if (!response.body().getResponce()) {
+                    Toast.makeText(mactivity, "No Data( false )", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mactivity, "Error while Connecting...", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<single_responce> call, Throwable t) {
+                Log.e("error at call", "" + t.getLocalizedMessage());
+                Log.e("error at call", "" + t.getMessage());
+                Log.e("error at call", "" + t.getCause());
+                Log.e("error at call", "" + t.getStackTrace());
+            }
+        });
+    }
 
 
     private void Confirm_Cancel(final String ordrid)
@@ -333,7 +429,6 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
         dialogBuilder.show();
     }
 
-
     private void CALL_CANCEL(String description, String ordrid)
     {
         String user_id = AppPrefrences.getUserid(mactivity);
@@ -359,6 +454,81 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
                 Log.e("error at call", "" + t.getStackTrace());
             }
         });
-
     }
+
+
+    private void Confirm_PayCash(final String ordr_id)
+    {
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(mactivity).create();
+        LayoutInflater inflater = mactivity.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_dialog_cash, null);
+
+        final EditText ednname = (EditText) dialogView.findViewById(R.id.ed_nname);
+        final EditText edmmobile = (EditText) dialogView.findViewById(R.id.ed_mmobile);
+        Button buttn_cancl = (Button) dialogView.findViewById(R.id.cancl);
+        Button buttn_submit = (Button) dialogView.findViewById(R.id.submit);
+
+        buttn_cancl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+            }
+        });
+        buttn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // DO SOMETHINGS
+                String nname = ednname.getText().toString().trim();
+                String mmobile = edmmobile.getText().toString().trim();
+                if (nname.matches(""))
+                {
+                    Toast.makeText(mactivity, "Please fill name correctly...", Toast.LENGTH_SHORT).show();
+                }
+                else if (!validCellPhone(mmobile))
+                {
+                    Toast.makeText(mactivity, "Please fill valid mobile number...", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                   // Toast.makeText(mactivity, "___ CASH ON DELIVERY ___", Toast.LENGTH_SHORT).show();
+                    CALL_PAYCash(ordr_id,nname,mmobile);
+                    dialogBuilder.dismiss();
+                }            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+    }
+
+    private void CALL_PAYCash(String order_id, String name, String mobile)
+    {
+        ApiService.PAY_IN_CASH_CALL(AppPrefrences.getUserid(mactivity), order_id, name, mobile).enqueue(new Callback<single_responce>() {
+            @Override
+            public void onResponse(Call<single_responce> call, Response<single_responce> response) {
+                Log.e("PAY_IN_CASH_CALL RES", "" + new Gson().toJson(response.body()));
+                Log.e("PAY_IN_CASH_CALL RES", "-------------------------------------------------");
+                if (response.body().getResponce()) {
+                    Toast.makeText(mactivity, "Order PAY in CASH Request Sent...", Toast.LENGTH_SHORT).show();
+                } else if (!response.body().getResponce()) {
+                    Toast.makeText(mactivity, "No Data( false )", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mactivity, "Error while Connecting...", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<single_responce> call, Throwable t) {
+                Log.e("error at call", "" + t.getLocalizedMessage());
+                Log.e("error at call", "" + t.getMessage());
+                Log.e("error at call", "" + t.getCause());
+                Log.e("error at call", "" + t.getStackTrace());
+            }
+        });
+    }
+
+    public boolean validCellPhone(String number)
+    {
+        return  !TextUtils.isEmpty(number) && (number.length()==10) && android.util.Patterns.PHONE.matcher(number).matches();
+    }
+
 }

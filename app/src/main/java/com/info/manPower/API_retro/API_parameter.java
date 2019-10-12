@@ -165,4 +165,20 @@ public interface API_parameter
     @Field("payment_mode")String payment_mode
     );
 
+    @FormUrlEncoded
+    @POST("complete")
+    Call<single_responce> WORK_COMPLETE(
+            @Field("order_id")String order_id,
+            @Field("user_id")String user_id
+    );
+
+    @FormUrlEncoded
+    @POST("paying")
+    Call<single_responce> PAY_IN_CASH_CALL(
+            @Field("user_id")String user_id,
+            @Field("order_id")String order_id,
+            @Field("name")String name,
+            @Field("contact")String mobile
+    );
+
 }

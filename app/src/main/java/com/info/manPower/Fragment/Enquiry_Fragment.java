@@ -152,6 +152,7 @@ public class Enquiry_Fragment extends Fragment
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ctname = (String)spinnercat.getItemAtPosition(position);
+                catid = ccatId.get(ctname);
                 Log.e("SPINNER ","____________________"+ctname+"________"+catid);
             }
 
@@ -160,9 +161,7 @@ public class Enquiry_Fragment extends Fragment
 
             }
         });
-
     }
-
 
     private void CALLAPI()
     {

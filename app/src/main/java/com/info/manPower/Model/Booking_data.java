@@ -38,6 +38,9 @@ public class Booking_data
     @SerializedName("payment_complete")
     @Expose
     private String payment_complete;
+    @SerializedName("cancel_time")
+    @Expose
+    private String cancel_time;
 
     public String getPayment_complete() {
         return payment_complete;
@@ -45,6 +48,15 @@ public class Booking_data
 
     public void setPayment_complete(String payment_complete) {
         this.payment_complete = payment_complete;
+    }
+
+
+    public String getCancel_time() {
+        return cancel_time;
+    }
+
+    public void setCancel_time(String cancel_time) {
+        this.cancel_time = cancel_time;
     }
 
     public String getOrderId() {

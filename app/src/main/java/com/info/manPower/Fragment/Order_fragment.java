@@ -1,5 +1,7 @@
 package com.info.manPower.Fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -12,12 +14,16 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,10 +31,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.vision.Frame;
 import com.google.gson.Gson;
 import com.info.manPower.API_retro.API_parameter;
 import com.info.manPower.AppUtils.AppPrefrences;
@@ -60,9 +69,9 @@ public class Order_fragment extends Fragment {
 
     Toolbar toolbar;
     TextView txToolbar, cnt;
-    ImageView imgToolbar, cart, ic_map;
+    ImageView imgToolbar, cart, ic_map, close_map;
     private Activity activity;
-    private TextView subtotal, payable, advpay, headadv;
+    private TextView subtotal, payable, advpay, headadv, tx_mmap;
     private DatabaseHandler db;
     private EditText name, mobile, mobileopt, landmark, address;
     private RadioGroup radio_payment;
@@ -71,10 +80,14 @@ public class Order_fragment extends Fragment {
     JSONArray passArray;
     private DatabaseHandler dbcart;
     static double advance = 0;
+    private FrameLayout Frame_Map;
+    ScrollView scrollview;
+    LinearLayout llinearlyt;
     SupportMapFragment mMap;
 
     private GoogleMap googleMap;
     private Location locationC;
+    int mapon=0;
 
     @Override
     public void onAttach(Context context) {
@@ -109,6 +122,17 @@ public class Order_fragment extends Fragment {
         cart = (ImageView) view.findViewById(R.id.icon_cart);
         cnt = (TextView) view.findViewById(R.id.cart_count);
 
+        scrollview = (ScrollView) view.findViewById(R.id.scrllvu);
+        llinearlyt = (LinearLayout) view.findViewById(R.id.ll_ttoolbar);
+
+        Frame_Map = (FrameLayout) view.findViewById(R.id.map_fragment);
+        tx_mmap = (TextView) view.findViewById(R.id.tx_mmap);
+        close_map = (ImageView) view.findViewById(R.id.close_map);
+
+        FragmentManager fragmentManager = ((MainActivity_drawer) getActivity()).getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.map_fragment , new Map_Fragment()).commit();
+
         new Advance_pay().execute();
         cart.setVisibility(View.GONE);
         cnt.setVisibility(View.GONE);
@@ -141,12 +165,42 @@ public class Order_fragment extends Fragment {
     }
 
     private void Click_Listeners() {
+
+        close_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mapon=0;
+                close_map.setVisibility(View.GONE);
+                Frame_Map.setVisibility(View.GONE);
+            }
+        });
+
+
         ic_map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                MapDialog_fragment mapf = new MapDialog_fragment();
-                mapf.show(getFragmentManager(), null);
+                if (mapon==0)
+                {         Frame_Map.setVisibility(View.VISIBLE);
+                    close_map.setVisibility(View.VISIBLE);
+                    Frame_Map.setAlpha(0.0f);
+                    Frame_Map.animate().translationX(0.1f).translationY(0.1f).alpha(1.0f).setListener(null);
+                mapon=1;            }
+
+                else
+                {                 //Frame_Map.setVisibility(View.GONE);
+                        Frame_Map.animate().translationY(0).alpha(0.0f).setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                 super.onAnimationEnd(animation);
+                                 close_map.setVisibility(View.GONE);
+                                 Frame_Map.setVisibility(View.GONE);
+                            }
+                        });
+                mapon=0;        }
+
+                //MapDialog_fragment mapf = new MapDialog_fragment();
+                //mapf.show(getFragmentManager(), null);
 
             }
         });
@@ -253,6 +307,7 @@ public class Order_fragment extends Fragment {
         }
         if (cnt == dlist.size()) {
             Log.e(advance+"INSTAMOJO CALL___",""+AppPrefrences.getMail(getActivity())+" --- "+phone+" --- "+advance+" --- "+pay_mode+" --- "+nam);
+            advance = 10;
             if (advance==0)
             {
                 Call_Order(passArray);
@@ -265,7 +320,6 @@ public class Order_fragment extends Fragment {
             Log.e(" SIZE ......... ", " COUNT ........ " + cnt + "...... List Size is ..... " + dlist.size() + " |||||  DATABASE COUNT " + dbcart.getCartCount());
         }
     }
-
 
     private void Call_Order(JSONArray jsonarray) {
         final ProgressDialog dialog;

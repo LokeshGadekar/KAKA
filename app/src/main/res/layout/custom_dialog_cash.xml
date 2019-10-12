@@ -4,52 +4,55 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_margin="10dp"
-    android:padding="10dp"
+    android:layout_margin="8dp"
+    android:padding="8dp"
     >
-
     <TextView
         android:id="@+id/head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Description to cancel?"
+        android:text="Add Details for payment in cash?"
         android:textColor="@color/red"
         android:textSize="8pt"
-        android:padding="2dp"
-        />
-
-    <TextView
-        android:id="@+id/hh1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="* Note : All items will be permenantly deleted."
-        android:inputType="textMultiLine"
-        android:textSize="6pt"
-        android:textColor="@color/grey"
-        android:layout_below="@id/head"
-        android:padding="8dp"
+        android:padding="9dp"
         />
 
     <EditText
-        android:id="@+id/ed_descrption"
+        android:id="@+id/ed_nname"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/hh1"
+        android:layout_height="35dp"
+        android:layout_below="@+id/head"
         android:background="@drawable/edit_text"
         android:layout_marginTop="8dp"
         android:textSize="8pt"
-        android:hint="Add Description"
-        android:padding="10dp"
+        android:hint="Name"
+        android:textAlignment="textStart"
         android:paddingLeft="10dp"
-        android:singleLine="false"
-        android:inputType="textMultiLine"
+        android:inputType="text"
+        android:singleLine="true"
+        android:layout_margin="6dp"
+        />
+
+    <EditText
+        android:id="@+id/ed_mmobile"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@+id/ed_nname"
+        android:background="@drawable/edit_text"
+        android:layout_marginTop="8dp"
+        android:textSize="8pt"
+        android:hint="Mobile No."
+        android:textAlignment="textStart"
+        android:paddingLeft="10dp"
+        android:inputType="text"
+        android:singleLine="true"
         android:layout_margin="6dp"
         />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ed_descrption"
+        android:layout_below="@+id/ed_mmobile"
         android:layout_margin="10dp"
         android:padding="10dp"
         >
@@ -70,5 +73,7 @@
             />
 
     </RelativeLayout>
+
+
 
 </RelativeLayout>

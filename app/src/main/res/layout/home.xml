@@ -39,6 +39,28 @@
 
     </androidx.cardview.widget.CardView>
 
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/crd_enquiry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:elevation="12dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="9pt"
+            style="@style/bold_tx"
+            android:textColor="@color/blue"
+            android:text="Hire Contractual Worker"
+            android:textAlignment="center"
+            android:padding="6dp"
+            />
+
+    </androidx.cardview.widget.CardView>
            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"

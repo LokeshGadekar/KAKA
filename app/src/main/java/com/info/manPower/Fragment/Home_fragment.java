@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -65,6 +66,7 @@ public class Home_fragment extends Fragment
 
     private RecyclerView recyclerView;
     private Category_adapter adapter;
+    private CardView crdEnquiry;
 
     private List<Category_model> categorylist;
     private DatabaseHandler dbcart;
@@ -91,6 +93,7 @@ public class Home_fragment extends Fragment
         cart_count = view.findViewById(R.id.cart_count);
         sliderView = (SliderView) view.findViewById(R.id.imageSlider);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        crdEnquiry = (CardView) view.findViewById(R.id.crd_enquiry);
 
         dbcart = new DatabaseHandler(getActivity());
         categorylist = new ArrayList<>();
@@ -195,6 +198,15 @@ public class Home_fragment extends Fragment
                 }
             }
         });
+
+        crdEnquiry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new Enquiry_Fragment())
+                        .addToBackStack(null).commit();
+            }
+        });
+
     }
 
      class GetCat extends AsyncTask<String, String, String>

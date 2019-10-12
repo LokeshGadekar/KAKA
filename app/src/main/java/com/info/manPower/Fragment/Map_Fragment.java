@@ -1,10 +1,12 @@
 package com.info.manPower.Fragment;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -16,17 +18,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.DialogFragment;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -34,6 +32,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -41,52 +40,31 @@ import com.info.manPower.R;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
-public class MapDialog_fragment extends DialogFragment
+import static java.security.AccessController.getContext;
+
+public class Map_Fragment extends Fragment
 {
     SupportMapFragment mMap;
-    TextView txaddr;
-    Button ok;
+
     private GoogleMap googleMap;
     private Location locationC;
-    String saddress;
+
+    public Map_Fragment() {
+    }
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_mapp,container,false);
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
 
-        getDialog().setTitle("Choose Location");
-
-        this.mMap = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.frag_map);
-        txaddr = view.findViewById(R.id.tx_maddr);
-        ok = view.findViewById(R.id.button_ok);
+        this.mMap = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.frag_map);
 
         Check_Permission();
 
-        ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent in = new Intent("StringAddr");
-                in.putExtra("Addr", saddress);
-                LocalBroadcastManager.getInstance(getContext()).sendBroadcast(in);
-                onDismiss(getDialog());
-            }
-        });
-
         return view;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        assert getFragmentManager() != null;
-        Fragment fragment = (getFragmentManager().findFragmentById(R.id.frag_map));
-        FragmentTransaction ft = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
-        ft.remove(fragment);
-        ft.commit();
     }
 
     private void Check_Permission()
@@ -153,13 +131,13 @@ public class MapDialog_fragment extends DialogFragment
 
                         //Log.e("Latitude : "+latitude,"Longitude : "+longitude);
 
-                        googleMap.addMarker(new MarkerOptions().position(latLng).title("Custom Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                        googleMap.addMarker(new MarkerOptions().position(latLng).title("Custom Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                         // Toast.makeText(getActivity(), "lat long is" + latLng, Toast.LENGTH_SHORT).show();
 
                     }
                 });
                 if (googleMap != null) {
-                    Toast.makeText(getActivity(), "google_map", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "not null", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
                 }
@@ -214,9 +192,13 @@ public class MapDialog_fragment extends DialogFragment
             } else {
                 if (addresses.size() > 0) {
 
-                    saddress = addresses.get(0).getAddressLine(0);
-                    //Toast.makeText(getActivity(), ""+saddress, Toast.LENGTH_SHORT).show();
-                    txaddr.setText(""+saddress);
+                    String saddress = addresses.get(0).getAddressLine(0);
+                    Toast.makeText(getActivity(), ""+saddress, Toast.LENGTH_SHORT).show();
+                    Intent in = new Intent("StringAddr");
+                    in.putExtra("Addr", saddress);
+                    LocalBroadcastManager.getInstance(getContext()).sendBroadcast(in);
+                    //getFragmentManager().popBackStack();
+
                     Log.e("address is", "" + addresses.get(0).getAddressLine(0));
                 }
             }
@@ -225,5 +207,12 @@ public class MapDialog_fragment extends DialogFragment
         }
     }
 
-
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
 }
