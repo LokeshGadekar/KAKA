@@ -28,7 +28,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.google.gson.Gson;
 import com.info.manPower.API_retro.API_parameter;
-import com.info.manPower.API_retro.Click_Listener;
 import com.info.manPower.Adapter.Category_adapter;
 import com.info.manPower.AppUtils.BaseUrl;
 import com.info.manPower.AppUtils.HttpHandler;

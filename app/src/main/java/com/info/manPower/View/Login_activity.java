@@ -24,6 +24,7 @@ import com.info.manPower.AppUtils.Internet_Connectivity;
 import com.info.manPower.AppUtils.Session_management;
 import com.info.manPower.AppUtils.Utilview;
 import com.info.manPower.Model.Registration_Responce;
+import com.info.manPower.Model.single_responce;
 import com.info.manPower.R;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -172,6 +173,9 @@ public class Login_activity extends AppCompatActivity
                         sessionManagement.createLoginSession(response.body().getData().getUserId(),response.body().getData().getfName()
                                 ,response.body().getData().getUserEmail(),response.body().getData().getPassword());
                         clear_edText();
+                        SEND_TOKEN(response.body().getData().getUserId());
+                        Intent main_in = new Intent(Login_activity.this,MainActivity_drawer.class);
+                        startActivity(main_in);
                         finish();
                     }
                     else
@@ -182,7 +186,44 @@ public class Login_activity extends AppCompatActivity
 
                 @Override
                 public void onFailure(Call<Registration_Responce> call, Throwable t) {
-                    Log.e("API Login Error ..." ,""+t);
+                    Log.e("API LOGIN_CALL Error" ,"  "+t.getStackTrace());
+                    Log.e("API LOGIN_CALL Error" ,"  "+t.getMessage());
+                    Log.e("API LOGIN_CALL Error" ,"  "+t.getCause());
+                    Log.e("API LOGIN_CALL Error" ,"  "+t.getLocalizedMessage());
+                }
+            });
+        }
+
+        //____  SEND TOKEN ____
+
+        private void SEND_TOKEN(final String user_id)
+        {
+            ApiService.Send_TOKEN(user_id,AppPrefrences.getUserToken(Login_activity.this)).enqueue(new Callback<single_responce>() {
+                @Override
+                public void onResponse(Call<single_responce> call, Response<single_responce> response) {
+
+                    Log.e("SEND_TOKEN RESPONSE.", "" + new Gson().toJson(response.body().getResponce()));
+                    Log.e("SEND_TOKEN RESPONSE.", "-------------------------------------------------");
+
+                    if (response.body().getResponce())
+                    {
+                        Log.e(" TOKEN IS ... "," "+user_id+"_________"+AppPrefrences.getUserToken(Login_activity.this));
+                        Toast.makeText(Login_activity.this, "Token Sent Successfully...", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (!response.body().getResponce())
+                    {
+                        //Toast.makeText(Login_activity.this, "Token Sent Successfully...", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                    }                }
+
+                @Override
+                public void onFailure(Call<single_responce> call, Throwable t) {
+                    Log.e("API TOKEN Error ..." ,""+t.getStackTrace());
+                    Log.e("API TOKEN Error ..." ,""+t.getMessage());
+                    Log.e("API TOKEN Error ..." ,""+t.getCause());
+                    Log.e("API TOKEN Error ..." ,""+t.getLocalizedMessage());
                 }
             });
         }
@@ -196,6 +237,7 @@ public class Login_activity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
         Utilview.hidekeyboard(Login_activity.this);
     }
 

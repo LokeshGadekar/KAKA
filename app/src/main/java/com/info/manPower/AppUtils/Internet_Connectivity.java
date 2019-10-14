@@ -41,6 +41,4 @@ public class Internet_Connectivity extends BroadcastReceiver
     public interface ConnectivityReceiverListener {
         void onNetworkConnectionChanged(boolean isConnected);
     }
-
-
 }

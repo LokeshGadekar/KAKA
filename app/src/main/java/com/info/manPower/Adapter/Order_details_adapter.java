@@ -48,12 +48,12 @@ public class Order_details_adapter extends RecyclerView.Adapter<Order_details_ad
 
             viewHolder.txnm.setText(ob.getSubcatName());
             viewHolder.amount.setText("Rs. "+ob.getAmount());
-            viewHolder.txfrom.setText(ob.getDateTo());
-            viewHolder.txto.setText(ob.getDateFrom());
+            viewHolder.txfrom.setText(ob.getDateFrom());
+            viewHolder.txto.setText(ob.getDateTo());
             viewHolder.description.setText(ob.getDescription());
 
-            String dat1 = ob.getDateTo();
-            String dat2 = ob.getDateFrom();
+            String dat1 = ob.getDateFrom();
+            String dat2 = ob.getDateTo();
             Date date1,date2;
             SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
             try {

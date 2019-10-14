@@ -37,7 +37,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.vision.Frame;
+//import com.google.android.gms.vision.Frame;
 import com.google.gson.Gson;
 import com.info.manPower.API_retro.API_parameter;
 import com.info.manPower.AppUtils.AppPrefrences;
@@ -307,7 +307,6 @@ public class Order_fragment extends Fragment {
         }
         if (cnt == dlist.size()) {
             Log.e(advance+"INSTAMOJO CALL___",""+AppPrefrences.getMail(getActivity())+" --- "+phone+" --- "+advance+" --- "+pay_mode+" --- "+nam);
-            advance = 10;
             if (advance==0)
             {
                 Call_Order(passArray);

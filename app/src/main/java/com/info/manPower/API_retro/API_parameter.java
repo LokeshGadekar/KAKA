@@ -181,4 +181,12 @@ public interface API_parameter
             @Field("contact")String mobile
     );
 
+
+    @FormUrlEncoded
+    @POST("notification")
+    Call<single_responce>  Send_TOKEN(
+      @Field("user_id")String user_id,
+      @Field("device_id")String device_id
+    );
+
 }

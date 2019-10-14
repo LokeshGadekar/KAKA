@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "386641119122",
+    "firebase_url": "https://man-power-254613.firebaseio.com",
+    "project_id": "man-power-254613",
+    "storage_bucket": "man-power-254613.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386641119122:android:af16184f597373d6ac234b",
+        "android_client_info": {
+          "package_name": "com.info.manPower"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "386641119122-avah3p2jiji8schqfp7sg5agfso4bh1u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.info.manPower",
+            "certificate_hash": "a7478d883941da03f58dc1a8c5542e7997686d93"
+          }
+        },
+        {
+          "client_id": "386641119122-cllgpoudc648juj7e4qjfdcob2cbmjd6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN78IdYMbn7OEPQbOadhVYkmdotujNWl8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "386641119122-cllgpoudc648juj7e4qjfdcob2cbmjd6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -13,6 +13,7 @@ public class AppPrefrences
     public static final String ADDRESS = "address";
     public static final String ORDER_PHONE = "orderphone";
     public static final String LOCATION = "location";
+    public static final String USER_TOKEN = "user_token";
 
 
     Context context;
@@ -104,6 +105,19 @@ public class AppPrefrences
         SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(LOCATION, value);
+        editor.commit();
+    }
+
+
+    public static String getUserToken(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
+        return preferences.getString(USER_TOKEN, "");
+    }
+
+    public static void setUserToken(Context context, String value) {
+        SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(USER_TOKEN, value);
         editor.commit();
     }
 

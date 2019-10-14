@@ -87,21 +87,21 @@ public class MainActivity_drawer extends AppCompatActivity {
         mail = (TextView) header.findViewById(R.id.head_mail);
         handler = new Handler();
 
-  r = new Runnable() {
-            public void run() {
-//                tv.append("Hello World");
-                if(sessionManagement.isLoggedIn()) {
-                    new CheckStatus().execute();
-                }else {
-                    Log.e("status" , "1");
-//                    handler.removeCallbacks(r);
-                    handler.removeCallbacks(null);
-                }
-                             handler.postDelayed(this, 2000);
-            }
-        };
-
-        handler.postDelayed(r, 3000);
+//  r = new Runnable() {
+//            public void run() {
+////                tv.append("Hello World");
+//                if(sessionManagement.isLoggedIn()) {
+//                    new CheckStatus().execute();
+//                }else {
+//                    Log.e("status" , "1");
+////                    handler.removeCallbacks(r);
+//                    handler.removeCallbacks(null);
+//                }
+//                             handler.postDelayed(this, 2000);
+//            }
+//        };
+//
+//        handler.postDelayed(r, 3000);
         toggle = new ActionBarDrawerToggle(activity, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
@@ -226,19 +226,26 @@ public class MainActivity_drawer extends AppCompatActivity {
            switch (item.getItemId()) {
 
                case R.id.nav_home:
+                   if (item.isChecked())
+                   {closeDrawer();               }
+                   else{
                    fragment = new Home_fragment();
                    fragmentmanager = getSupportFragmentManager();
 //                   fragmentmanager.popBackStack();
                    fragmentTransaction = fragmentmanager.beginTransaction();
                    fragmentTransaction.replace(R.id.fragment_layout,fragment);
-                //   fragmentTransaction.commit();
-                   fragmentTransaction.commitNow();
-
-                   closeDrawer();
+                   fragmentTransaction.addToBackStack(null);
+                   fragmentTransaction.commit();
+                   //fragmentTransaction.commitNow();
+                   closeDrawer(); }
                    break;
 
               case R.id.nav_profile:
-
+                  if (item.isChecked())
+                  {closeDrawer();
+                  }
+                  else
+                  {
                   if(!sessionManagement.isLoggedIn())
                   {     Intent in = new Intent(MainActivity_drawer.this, Login_activity.class);
                         startActivity(in); }
@@ -254,10 +261,16 @@ public class MainActivity_drawer extends AppCompatActivity {
                   fragmentTransaction.commit();
 //                      fragment.getActivity().finish();
                   lockDrawer();
-                  closeDrawer(); }
+                  closeDrawer(); } }
                   break;
 
                case R.id.nav_booking:
+                   if (item.isChecked())
+                   {closeDrawer();
+                       //Toast.makeText(activity, "IS CHECKEDDDDD.....", Toast.LENGTH_SHORT).show();
+                   }
+                   else
+                   {
                    if (!sessionManagement.isLoggedIn())
                    { Intent in = new Intent(MainActivity_drawer.this, Login_activity.class);
                        startActivity(in);   }
@@ -270,9 +283,14 @@ public class MainActivity_drawer extends AppCompatActivity {
                        fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
                        fragmentTransaction.commit();
                        lockDrawer();
-                   }                   break;
+                   }     }              break;
 
                case R.id.nav_enquiry:
+                   if (item.isChecked())
+                   {closeDrawer();
+                       //Toast.makeText(activity, "IS CHECKEDDDDD.....", Toast.LENGTH_SHORT).show();
+                   }
+                   else{
                    fragment = new Enquiry_Fragment();
                    fragmentmanager = getSupportFragmentManager();
 //                   fragmentmanager.popBackStack();
@@ -282,10 +300,14 @@ public class MainActivity_drawer extends AppCompatActivity {
                 //   fragmentTransaction.commit();
                    fragmentTransaction.commitNow();
 //                   fragment.getActivity().finish();
-                   closeDrawer();
+                   closeDrawer(); }
                    break;
 
                case R.id.nav_support:
+                   if (item.isChecked())
+                   {closeDrawer();
+                   }
+                   else {
                    fragment = new Support_fragment();
                    bn.putString("Desc","Support");
                    fragment.setArguments(bn);
@@ -298,10 +320,15 @@ public class MainActivity_drawer extends AppCompatActivity {
                    fragmentTransaction.commitNow();
 //                   fragment.getActivity().finish();
                    lockDrawer();
-                   closeDrawer();
+                   closeDrawer(); }
                    break;
 
                case R.id.nav_aboutus:
+                   if (item.isChecked())
+                   {closeDrawer();
+                   }
+                   else
+                   {
                    fragment = new Support_fragment();
                    bn.putString("Desc","About");
                    fragment.setArguments(bn);
@@ -314,10 +341,15 @@ public class MainActivity_drawer extends AppCompatActivity {
                    fragmentTransaction.commitNow();
 //                   fragment.getActivity().finish();
                    lockDrawer();
-                   closeDrawer();
+                   closeDrawer(); }
                    break;
 
                case R.id.nav_tnc:
+                   if (item.isChecked())
+                   {closeDrawer();
+                   }
+                   else
+                   {
                    fragment = new Support_fragment();
                    bn.putString("Desc","Terms");
                    fragment.setArguments(bn);
@@ -330,10 +362,15 @@ public class MainActivity_drawer extends AppCompatActivity {
                    fragmentTransaction.commitNow();
 //                   fragment.getActivity().finish();
                    lockDrawer();
-                   closeDrawer();
+                   closeDrawer();  }
                    break;
 
                case R.id.nav_feedback:
+                   if (item.isChecked())
+                   {closeDrawer();
+                   }
+                   else
+                   {
                    fragment = new FeedBack_fragment();
                    fragmentmanager = getSupportFragmentManager();
 //                   fragmentmanager.popBackStack();
@@ -344,35 +381,55 @@ public class MainActivity_drawer extends AppCompatActivity {
                    fragmentTransaction.commitNow();
 //                   fragment.getActivity().finish();
                    lockDrawer();
-                   closeDrawer();
+                   closeDrawer(); }
                    break;
 
                case R.id.nav_login:
+                   if (item.isChecked())
+                   {closeDrawer();
+                   }
+                   else
+                   {
                    Intent in = new Intent(MainActivity_drawer.this, Login_activity.class);
-                   startActivity(in);
+                   startActivity(in); }
                    break;
 
                case R.id.nav_logout:
+                   if (item.isChecked())
+                   {closeDrawer();
+                   }
+                   else{
                    sessionManagement.logoutSession();
                    Toast.makeText(MainActivity_drawer.this, "Logged Out...", Toast.LENGTH_SHORT).show();
-                   finish();
+                   check_Login_Status(); }
                    break;
 
                case R.id.nav_payhistory:
-                   Toast.makeText(activity, "Coming Soon.....", Toast.LENGTH_SHORT).show();
+                   if (item.isChecked())
+                   {closeDrawer();
+                   }else
+                   {
+                   Toast.makeText(activity, "Coming Soon.....", Toast.LENGTH_SHORT).show(); }
                    break;
 
                case R.id.nav_orderphone:
+                   if (item.isChecked())
+                   {closeDrawer();
+                   }
+                   else {
                    try {
                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + AppPrefrences.getOrderPhone(activity)));
                    startActivity(intent);}
                    catch (Exception ex)
                    {   ex.printStackTrace();
                        Toast.makeText(activity, "Error No Sim Card Found......", Toast.LENGTH_SHORT).show();
-                                          }                   break;
+                           } }                  break;
 
                case R.id.nav_share:
-                   shareApp();
+                   if (item.isChecked())
+                   {closeDrawer();             }
+                   else
+                   {    shareApp();  }
                     break;
                  }
                  return true;
@@ -524,7 +581,7 @@ public class MainActivity_drawer extends AppCompatActivity {
                     Log.e("status" , "   "+responce);
                     if(!responce){
                         sessionManagement.logoutSession();
-                        handler.removeCallbacks(r);
+                   //     handler.removeCallbacks(r);
                     }
 
                 } catch (JSONException e) {

@@ -36,6 +36,20 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <!--<activity android:name=".ShowProdDetail" /> &lt;!&ndash; Firebase Notifications &ndash;&gt;-->
+        <service android:name=".fcm.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".fcm.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <!-- ./Firebase Notifications -->
+
+
 
         <activity android:name=".View.MainActivity_drawer"
             android:theme="@style/AppTheme.NoActionBar"

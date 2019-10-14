@@ -80,7 +80,7 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
             viewHolder.txnm.setText(ob.getCatName());
             viewHolder.orderid.setText(ob.getOrderId());
             viewHolder.pay.setText("Rs. "+ob.getTotalAmt());
-            viewHolder.dfrom.setText(ob.getDate());
+            viewHolder.dfrom.setText(ob.getDate().substring(0,10));
             int adv =(Integer.parseInt(ob.getTotalAmt())*Integer.parseInt(ob.getAdvance()))/100;
             viewHolder.advance.setText("Rs. "+adv);
             viewHolder.amtpending.setText("Rs. "+(Integer.parseInt(ob.getTotalAmt())-adv));
@@ -108,8 +108,9 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
             }
             else if (Integer.parseInt(ob.getStatus()) == 3)
             {
-                viewHolder.status.setText("Cancel");
+                viewHolder.status.setText("Cancelled");
                 viewHolder.ButtnWprogress.setVisibility(View.GONE);
+                viewHolder.ButtnCancel.setVisibility(View.GONE);
                 viewHolder.status.setBackground(mactivity.getResources().getDrawable(R.drawable.chip_pending));
             }
             else if (Integer.parseInt(ob.getStatus()) == 4)
@@ -181,7 +182,7 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
-                                    Confirm_Cancel(ob.getOrderId());
+                                    Confirm_Cancel(ob.getOrderId(),i);
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -226,7 +227,7 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
                                     //Complete_Order(ob.getOrderId(),i);
-                                    Confirm_PayCash(ob.getOrderId());
+                                    Confirm_PayCash(ob.getOrderId(),i);
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -393,7 +394,7 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
     }
 
 
-    private void Confirm_Cancel(final String ordrid)
+    private void Confirm_Cancel(final String ordrid,final int pos)
     {
        final AlertDialog dialogBuilder = new AlertDialog.Builder(mactivity).create();
         LayoutInflater inflater = mactivity.getLayoutInflater();
@@ -420,7 +421,7 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
                 }
                 else
                 {
-                    CALL_CANCEL(desc,ordrid);
+                    CALL_CANCEL(desc,ordrid,pos);
                     dialogBuilder.dismiss();
                 }            }
         });
@@ -429,7 +430,7 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
         dialogBuilder.show();
     }
 
-    private void CALL_CANCEL(String description, String ordrid)
+    private void CALL_CANCEL(String description, String ordrid,final int c)
     {
         String user_id = AppPrefrences.getUserid(mactivity);
         ApiService.CANCEL_ORDER(ordrid,user_id,description).enqueue(new Callback<Cancel_order_responce>() {
@@ -439,6 +440,9 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
                 Log.e("CALL_CANCEL RESPONSE.", "-------------------------------------------------");
                 if (response.body().getResponce()) {
                     Toast.makeText(mactivity, "Order Cancel Request Sent...", Toast.LENGTH_SHORT).show();
+                    dataList.get(c).setCancel_time("1");
+                    dataList.get(c).setOrder_Cancel("1");
+                    notifyItemChanged(c);
                 } else if (!response.body().getResponce()) {
                     Toast.makeText(mactivity, "No Data( false )", Toast.LENGTH_SHORT).show();
                 } else {
@@ -457,7 +461,7 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
     }
 
 
-    private void Confirm_PayCash(final String ordr_id)
+    private void Confirm_PayCash(final String ordr_id,final int u)
     {
         final AlertDialog dialogBuilder = new AlertDialog.Builder(mactivity).create();
         LayoutInflater inflater = mactivity.getLayoutInflater();
@@ -491,7 +495,7 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
                 else
                 {
                    // Toast.makeText(mactivity, "___ CASH ON DELIVERY ___", Toast.LENGTH_SHORT).show();
-                    CALL_PAYCash(ordr_id,nname,mmobile);
+                    CALL_PAYCash(ordr_id,nname,mmobile,u);
                     dialogBuilder.dismiss();
                 }            }
         });
@@ -500,7 +504,7 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
         dialogBuilder.show();
     }
 
-    private void CALL_PAYCash(String order_id, String name, String mobile)
+    private void CALL_PAYCash(String order_id, String name, String mobile, final int y)
     {
         ApiService.PAY_IN_CASH_CALL(AppPrefrences.getUserid(mactivity), order_id, name, mobile).enqueue(new Callback<single_responce>() {
             @Override
@@ -509,6 +513,8 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
                 Log.e("PAY_IN_CASH_CALL RES", "-------------------------------------------------");
                 if (response.body().getResponce()) {
                     Toast.makeText(mactivity, "Order PAY in CASH Request Sent...", Toast.LENGTH_SHORT).show();
+                    dataList.get(y).setPayment_complete("1");
+                    notifyItemChanged(y);
                 } else if (!response.body().getResponce()) {
                     Toast.makeText(mactivity, "No Data( false )", Toast.LENGTH_SHORT).show();
                 } else {
