@@ -26,7 +26,7 @@
 
         <item
             android:id="@+id/nav_enquiry"
-            android:title="Enquiry"
+            android:title="Contractual Worker"
             android:icon="@drawable/book_app"
             />
         <item

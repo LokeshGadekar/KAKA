@@ -96,7 +96,7 @@
             android:id="@+id/ed_landmark"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:hint="Landmark"
+            android:hint="Landmark / Street"
             android:background="@drawable/edit_text"
             android:paddingLeft="10dp"
             android:layout_marginTop="8dp"

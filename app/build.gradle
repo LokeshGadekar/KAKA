@@ -5,7 +5,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion "29.0.0"
     defaultConfig {
-        applicationId "com.info.manPower"
+        applicationId "com.kaka.ics"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
@@ -94,7 +94,7 @@ dependencies {
     implementation 'at.blogc:expandabletextview:1.0.5'
 
     //Google maps API
-    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
 //    implementation 'com.google.android.gms:play-services:8.3.0'
 }
 // ADD THIS AT THE BOTTOM

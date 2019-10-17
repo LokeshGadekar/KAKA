@@ -35,7 +35,7 @@
                 android:id="@+id/img_logo"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/m1"
+                android:src="@drawable/app_logo"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 />
@@ -169,42 +169,42 @@
                 android:drawableLeft="@drawable/ic_account_circle_black_24dp"
                 />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:orientation="horizontal"
-            android:background="@drawable/edit_text"
-            android:padding="2dp"
-            android:layout_marginTop="15dp"
-            >
-
-
-            <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView1"
-                android:layout_centerHorizontal="true"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
                 android:orientation="horizontal"
-                android:id="@+id/radioGrp"
+                android:background="@drawable/edit_text"
+                android:padding="2dp"
+                android:layout_marginTop="15dp"
                 >
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Male"
-                android:textColor="@color/grey"
-                />
 
-           <RadioButton
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Female"
-               android:layout_marginLeft="20dp"
-               android:textColor="@color/grey"
-               />
-            </RadioGroup>
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView1"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal"
+                    android:id="@+id/radioGrp"
+                    >
 
-        </LinearLayout>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Male"
+                        android:textColor="@color/grey"
+                        />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Female"
+                        android:layout_marginLeft="20dp"
+                        android:textColor="@color/grey"
+                        />
+                </RadioGroup>
+
+            </LinearLayout>
 
 
             <LinearLayout

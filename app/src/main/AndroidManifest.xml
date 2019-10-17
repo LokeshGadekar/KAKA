@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.info.manPower">
+    package="com.kaka.ics">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -10,14 +10,16 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
         android:icon="@drawable/app_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".View.Splash_activity"
+        <activity android:name="com.kaka.ics.View.Splash_activity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustResize|stateHidden">
@@ -37,12 +39,12 @@
             android:value="@integer/google_play_services_version" />
 
         <!--<activity android:name=".ShowProdDetail" /> &lt;!&ndash; Firebase Notifications &ndash;&gt;-->
-        <service android:name=".fcm.MyFirebaseMessagingService">
+        <service android:name="com.kaka.ics.fcm.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".fcm.MyFirebaseInstanceIDService">
+        <service android:name="com.kaka.ics.fcm.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
@@ -51,39 +53,44 @@
 
 
 
-        <activity android:name=".View.MainActivity_drawer"
+        <activity android:name="com.kaka.ics.View.MainActivity_drawer"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"
             />
-        <activity android:name=".View.Location_activity"
+        <activity android:name="com.kaka.ics.View.Location_activity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"
             />
 
-        <activity android:name=".View.Login_activity"
+        <activity android:name="com.kaka.ics.View.Login_activity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
 
-        <activity android:name=".View.Registration_activity"
+        <activity android:name="com.kaka.ics.View.Registration_activity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden"
             />
 
-        <activity android:name=".View.Forget_password_activity"
+        <activity android:name="com.kaka.ics.View.Forget_password_activity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden"
             />
-        <activity android:name=".View.OTP_activity"
+        <activity android:name="com.kaka.ics.View.OTP_activity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden"
             />
-        <activity android:name=".View.Reset_password_activity"
+        <activity android:name="com.kaka.ics.View.Reset_password_activity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            />
+        <activity android:name="com.kaka.ics.View.Payment_Activity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden"
@@ -91,18 +98,7 @@
     <meta-data android:name="instamojo.orderauth.url"
                    android:value="https://www.lotusenterprises.net/manpower/access_token.php"
             />
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
     </application>
-    <uses-permission-sdk-23 android:name="android.permission.RECEIVE_SMS"/>
- 
-    <uses-permission-sdk-23 android:name="android.permission.READ_SMS"/>
- 
-    <uses-permission-sdk-23 android:name="android.permission.READ_PHONE_STATE"/>
- 
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
- 
-    <uses-permission android:name="android.permission.READ_SMS"/>
- 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
- 
 
 </manifest>

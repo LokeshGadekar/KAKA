@@ -10,18 +10,18 @@
         android:id="@+id/ttbar"
         layout="@layout/layout_toolbar"/>
 
-   <!-- <TextView
-        android:id="@+id/tx_head"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Support"
-        android:textSize="9pt"
-        android:layout_centerHorizontal="true"
-        android:padding="9dp"
-        android:textColor="@color/black"
-        android:layout_below="@+id/ttbar"
-        />
--->
+    <!-- <TextView
+         android:id="@+id/tx_head"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Support"
+         android:textSize="9pt"
+         android:layout_centerHorizontal="true"
+         android:padding="9dp"
+         android:textColor="@color/black"
+         android:layout_below="@+id/ttbar"
+         />
+ -->
     <ScrollView
         android:layout_below="@+id/ttbar"
         android:layout_width="match_parent"

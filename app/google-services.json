@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:386641119122:android:af16184f597373d6ac234b",
         "android_client_info": {
-          "package_name": "com.info.manPower"
+          "package_name": "com.kaka.ics"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "386641119122-avah3p2jiji8schqfp7sg5agfso4bh1u.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.info.manPower",
+            "package_name": "com.kaka.ics",
             "certificate_hash": "a7478d883941da03f58dc1a8c5542e7997686d93"
           }
         },
