@@ -44,7 +44,7 @@
         android:hint="Mobile No."
         android:textAlignment="textStart"
         android:paddingLeft="10dp"
-        android:inputType="text"
+        android:inputType="number"
         android:singleLine="true"
         android:layout_margin="6dp"
         />

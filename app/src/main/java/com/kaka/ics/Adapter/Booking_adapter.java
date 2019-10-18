@@ -58,8 +58,18 @@ public class Booking_adapter extends RecyclerView.Adapter<Booking_adapter.ViewHo
         this.mactivity=mactivity;
         this.dataList=dataList;
         ApiService = BaseUrl.getAPIService();
+        setHasStableIds(true);
     }
 
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 
     @Override
     public Booking_adapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
